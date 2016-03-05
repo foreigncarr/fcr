@@ -1,0 +1,92 @@
+html {background-color:#000}
+body {font-family: "나눔고딕", "Arial", sans-serif}
+
+ul {list-style:none; padding:0}
+hr {margin:0px}
+
+.blank_line {display:block; height:30px;}
+.blind {width:1px; height:1px; position:absolute; overflow:hidden; text-indent:1px;}
+.center {text-align:center;}
+.black {color:#000}
+.white {color:#fff}
+.inner {padding:0 30px;}
+
+.area_container {}
+.area_container .area_body {position:relative; width:640px; margin:auto;}
+
+.area_tit {margin-bottom:15px; font-size:42px; font-weight:bold; letter-spacing:-2px; line-height:50px;}
+.area_tit .bar {margin-bottom:18px; display:block; height:3px; width:37px; background-color:#027cc5;}
+.area_tit .bar_white {background-color:#fff;}
+
+.intro_area {color:#fff;  background:url('../img/ms_big_top_img.png') no-repeat center center; background-size:cover; background-color:#000;}
+@media all and (max-width:640px) {
+    .intro_area {background:url('../img/intro_bg_1.jpg') no-repeat;}
+}
+
+.intro_area .area_body {height:1126px;}
+.intro_area h1 {position:absolute; top:50px; left:30px; width:193px; height:41px; background:url('../img/logo.png') no-repeat;}
+
+.intro_area .intro_head {position:absolute; top:170px; width:100%;}
+.intro_area .intro_head .copy_2 {font-size:28px; font-weight:bold; letter-spacing:-2px;}
+
+.intro_area .intro_tail {position:absolute; bottom:20px; width:100%;}
+.intro_area .intro_tail .copy_3 {font-size:23px; font-weight:bold; letter-spacing:-2px;}
+.intro_area .intro_tail .intro_btns {margin-top:20px; display:table; width:100%;}
+.intro_area .intro_tail .intro_btns li {display:table-cell; width:33.3%; text-align:center;}
+.intro_area .intro_tail .intro_btns li a {display:inline-block; width:148px; padding:9px 0; border-radius:8px; color:#fff; font-size:20px; font-weight:bold; text-align:center; vertical-align:middle; white-space:nowrap; background:url('../img/intro_btn_bg.png');}
+.intro_area .intro_tail  hr {margin-top:20px; border:0px; background-color:#fff; height:1px; opacity:0.5}
+.intro_area .intro_tail  h2 {display:block; margin-top:30px; width:580px; font-size:30px; font-weight:bold;}
+.intro_area .intro_tail .answers {margin-top:26px; font-size:19px; line-height:24px}
+
+.banner_area {padding-top:30px; background-color:#fff}
+.banner_area a.bn_whiteday {display:inline-block;}
+.banner_area .slides {position:relative; margin:auto; width:568px}
+.banner_area .slides .slidesjs-pagination {text-align:center;}
+.banner_area .slides .slidesjs-pagination-item {display:inline-block; padding:12px 8px;}
+.banner_area .slides .slidesjs-pagination-item a {display:inline-block; background-color:#dcdcdc; width:10px; height:10px; box-sizing:border-box; border-radius:5px; font-size:1px; overflow:hidden; text-indent:-50px;}
+.banner_area .slides .slidesjs-pagination-item a.active {background-color:#027cc5}
+
+.step_area {position:relative; padding-top:40px; padding-bottom:100px; background-color:#027cc5;}
+
+.brands_area {position:relative; padding-top:40px; padding-bottom:100px;}
+.brands_area  hr {margin-top:20px; border:0px; background-color:#ddd; height:1px; opacity:0.5}
+.brands_area .brand_icons {display:block; width:600px; margin:40px auto 20px auto; font-size:0px}
+.brands_area .brand_icons li {display:inline-block; width:200px; margin:20px 0; text-align:center;}
+
+.link_area {padding:60px 0 10px 0; text-align:center;}
+.link_area .link_btns {display:table; width:100%;}
+.link_area .link_btns li {display:table-cell; width:33.3%; text-align:center;}
+.link_area .link_btns li a {display:inline-block; width:148px; padding:9px 0; border-radius:8px; color:#2a2a2a; font-size:20px; font-weight:bold; text-align:center; vertical-align:middle; white-space:nowrap; border:1px solid #bebebe}
+.link_area .copy_1 {margin-top:80px; font-size:40px; line-height:45px;}
+.link_area .copy_2 {margin-top:30px; font-size:30px; line-height:35px;}
+.link_area .share_btns {display:table; margin:30px auto 0 auto;}
+.link_area .share_btns li {display:table-cell; width:145px;}
+.link_area .share_btns li a {display:inline-block; width:116px; height:116px;}
+.link_area .share_btns li a.btn_share_kakao {background:url('../img/btn_share_kakao.png') no-repeat;}
+.link_area .share_btns li a.btn_share_facebook {background:url('../img/btn_share_facebook.png') no-repeat;}
+.link_area .share_btns li a.btn_share_blog {background:url('../img/btn_share_blog.png') no-repeat;}
+.link_area .link_list {margin-top:70px;}
+.link_area .link_list li {display:inline-block; padding-left:30px; background:url('../img/copyright_bar.jpg') no-repeat 14px 3px;}
+.link_area .link_list li:first-child {padding-left:0px; backgroun-image:none;}
+.link_area .link_list li a {color:#a6a6a6; font-size:19px}
+
+.footer_area {padding:40px 0; text-align:center; background-color:#f4f4f4;}
+.footer_area h2 {font-size:30px; font-weight:bold; color:#6c6c6c}
+.footer_area p {padding-top:5px; font-size:20px; font-weight:bold; color:#787878}
+.footer_area ul {margin-top:35px;}
+.footer_area ul li {display:inline-block; padding-left:30px; background:url('../img/copyright_bar.jpg') no-repeat 14px 3px;}
+.footer_area ul li:first-child {padding-left:0px; backgroun-image:none;}
+.footer_area ul li a {color:#a6a6a6; font-size:19px}
+
+.msc_modal {position:absolute; display:none; left:50%; margin-left:-320px; top:0px; padding-top:70px; width:640px; height:100%; background-color:#ddd;}
+.msc_modal_tit {position:absolute; left:0px; top:0px; width:100%; height:70px; line-height:70px; text-align:center; color:#222; font-size:40px; border-bottom:1px solid #ccc; background-color:#fff; vertical-align:middle;}
+.msc_modal_close {position:absolute; left:15px; top:16px; width:35px; height:35px; display:block; background:url('../img/btn_modal_close.png') no-repeat;}
+.cars_container {height:100%; overflow:auto;}
+.cars_container .cars_item {position:relative; margin:25px; padding:25px; border:1px solid #ddd; background-color:#fff}
+.cars_container .cars_item .car_name {font-size:35px}
+.cars_container .cars_item .car_image img {width:100%;}
+.cars_container .cars_item .car_reserv_btn {position:absolute; right:25px; bottom:25px; font-size:25px; font-weight:bold; background-color:#fff; padding:10px 15px; color:#000; border:2px solid #000; border-radius:10px;}
+.cars_container .cars_item dl {position:absolute; left:25px; bottom:0px; font-weight:bold; font-size:25px;}
+.cars_container .cars_item dl dt {float:left; clear:both; color:#ccc}
+.cars_container .cars_item dl dd {float:left; margin-left:30px;  *zoom:1; color:#333}
+.cars_container .cars_item dl dd:after {content:""; clear:both; display:block; height:0px;}
