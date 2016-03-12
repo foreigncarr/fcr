@@ -5,7 +5,7 @@ var cars_data = {
     ]},
     'maserati': {'title': '마세라티', 'models':[]},
     'porsche': {'title': '포르쉐', 'models':[]},
-    'benz': {'title': '벤트', 'models':[]},
+    'benz': {'title': '메르세데스 벤', 'models':[]},
     'bmw': {'title': 'BMW', 'models':[]},
     'audi': {'title': '아우디', 'models':[]},
     'volkswagen': {'title': '폭스바겐', 'models':[]},
@@ -16,6 +16,10 @@ var cars_data = {
     'fiat': {'title': '피아트', 'models':[]},
     'hyundai': {'title': '현태', 'models':[]},
     'kia': {'title': '기아', 'models':[]}
+};
+
+var page_data = {
+    top: 0
 };
 
 (function(window){
@@ -105,6 +109,8 @@ $(function(){
 });
 
 function open_cars_modal(brand){
+    page_data.top = $(document).scrollTop();
+
     $('.msc_modal_tit').html(cars_data[brand].title);
 
     var cars_item_template = Handlebars.compile($("#cars_item_template").html());
@@ -128,4 +134,5 @@ function open_agreement_modal(){
 function close_cars_modal(){
     $('.msc_modal').hide();
     $('.content_wrap').show();
+    $(document).scrollTop(page_data.top);
 }
