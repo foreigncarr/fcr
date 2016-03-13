@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+puts '-------------------------------------------------------------------------------------'
+puts '[주의!] amazon aws ssh identify file 은 ~/.ssh/foreigncarr_key.pem 에 두기'
+puts '-------------------------------------------------------------------------------------'
+puts ''
+
+$ssh_id_filepath = '~/.ssh/foreigncarr_key.pem'
+$ssh_id = 'ubuntu'
+$asw_host = 'ec2-52-79-59-24.ap-northeast-2.compute.amazonaws.com'
+$app_dir = '/home/ubuntu/fcr_webapp'
+$shared_dir = "#{$app_dir}/shared"
+$current_dir = "#{$app_dir}/current"
+
+def aws_cmd(cmd)
+  puts "> #{cmd}"
+  raise 'Error' unless system "ssh -i #{$ssh_id_filepath} #{$ssh_id}@#{$asw_host} '#{cmd}'"
+end
+
+def deploy
+  git_src_dir = "#{$app_dir}/fcr"
+  aws_cmd "cd #{git_src_dir}; git pull"
+
+  release_dir = "#{$app_dir}/releases/#{Time.now.strftime('%Y%m%d%H%M%S')}"
+  aws_cmd "mkdir -p #{release_dir}; cp -r #{git_src_dir}/* #{release_dir}"
+
+  aws_cmd "rm -rf #{release_dir}/log; ln -s #{$shared_dir}/log #{release_dir}/log"
+  aws_cmd "rm -rf #{release_dir}/shared; ln -s #{$shared_dir} #{release_dir}/shared"
+
+  aws_cmd "rm #{$current_dir}; ln -s #{release_dir} #{$current_dir}"
+
+  aws_cmd "sudo service unicorn_fcr_webapp stop"
+  aws_cmd "sudo service unicorn_fcr_webapp start"
+rescue => e
+  puts "Stopped for #{e}"
+end
+
+
+puts 'Starting deploy to remote...'
+deploy
