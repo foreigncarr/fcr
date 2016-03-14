@@ -7,7 +7,7 @@ puts ''
 
 $ssh_id_filepath = '~/.ssh/foreigncarr_key.pem'
 $ssh_id = 'ubuntu'
-$asw_host = 'ec2-52-79-59-24.ap-northeast-2.compute.amazonaws.com'
+$asw_host = 'ec2-52-79-128-204.ap-northeast-2.compute.amazonaws.com'
 $app_dir = '/home/ubuntu/fcr_webapp'
 $shared_dir = "#{$app_dir}/shared"
 $current_dir = "#{$app_dir}/current"
