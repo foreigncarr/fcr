@@ -14,12 +14,14 @@ $current_dir = "#{$app_dir}/current"
 
 def aws_cmd(cmd)
   puts "> #{cmd}"
-  raise 'Error' unless system "ssh -i #{$ssh_id_filepath} #{$ssh_id}@#{$asw_host} '#{cmd}'"
+  raise 'Error' unless system "ssh -i #{$ssh_id_filepath} #{$ssh_id}@#{$asw_host} 'source ~/.rvm/scripts/rvm; #{cmd}'"
 end
 
 def deploy
   git_src_dir = "#{$app_dir}/fcr"
   aws_cmd "cd #{git_src_dir}; git pull"
+
+  aws_cmd 'cd #{git_src_dir}; RAILS_ENV=production bundle exec rake assets:precompile; RAILS_ENV=production bundle install'
 
   release_dir = "#{$app_dir}/releases/#{Time.now.strftime('%Y%m%d%H%M%S')}"
   aws_cmd "mkdir -p #{release_dir}; cp -r #{git_src_dir}/* #{release_dir}"
