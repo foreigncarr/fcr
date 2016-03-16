@@ -11,6 +11,9 @@
   <!--<link rel="stylesheet" type="text/css" media="all" href="assets/bootstrap/css/bootstrap-theme.min.css">-->
   <link rel="stylesheet" type="text/css" media="all" href="assets/css/msc.css?t=201603022000">
 
+  <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/js/history.js"></script>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -19,6 +22,6 @@
 <%= yield %>
 
 </body>
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'app', 'data-turbolinks-track' => true %>
 </html>
 
