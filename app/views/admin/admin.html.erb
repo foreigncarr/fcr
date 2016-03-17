@@ -40,33 +40,125 @@
   <% else %>
   <div id='admin_box' style="display: block;margin:20px;background: #efefef">
     <div style="width: 100%; display: inline-block; padding: 50px 20px 50px 20px">
-      <button type="button" id='import_button'>데이터 가져오기</button>
-      <progress id='progress' max="100" value="0" style="width:800px"></progress>
+      <button type="button" id='import_button' onclick="javascript:start_fetch_data()">데이터 가져오기</button>
+      <progress id='progress' max="4" value="0" style="width:800px"></progress>
       <br/> <br/>
 
       <div id='progress_description' style="font-size: 12px; color:#afafaf;margin-left:50px">
-        0개 브랜드, 0개 모델 정보 수신
+
       </div>
       <br/><br/>
 
-      <table class="gridtable">
-        <tr>
-          <% %w(image modelCode brand modelName mileage fuel price).each do |code| %>
-            <th><%= code %></th>
-          <% end %>
-        </tr>
-        <tr>
-
-        </tr>
-        <tr>
-
-        </tr>
+      <table id='model_table' class="gridtable">
       </table>
       <br/><br/>
-      <button id='update_button' type="button" disabled style="display:block; height: 40px; width: 150px;float:right; color:#afafaf; margin-right: 50px">적용하기</button>
+      <button onclick="javascript:update_data()" id='update_button' type="button" disabled style="display:block; height: 40px; width: 150px;float:right; color:#5774af; margin-right: 50px">적용하기</button>
     </div>
   </div>
 
   <% end %>
 
 </div>
+
+<script type="text/javascript">
+
+  var cars_data = {"brand": {}, "model": {}, "banner": {}, "event": {}};
+  var start_fetch_data = function () {
+    fetch_brand_data();
+  }
+
+  var fetch_brand_data = function(){
+    $("#progress_description").html("브랜드 정보를 얻어옵니다");
+    $.ajax({
+      url: "/admin/load_brand_data",
+      context: document.body
+    }).done(function (data) {
+              cars_data.brand = data;
+              $('#progress').attr('value',1);
+              fetch_model_data();
+            });
+  }
+
+  var fetch_model_data = function(){
+    $("#progress_description").html("모델 정보를 얻어옵니다");
+    $.ajax({
+      url: "/admin/load_model_data",
+      context: document.body
+    }).done(function (data) {
+              cars_data.model = data;
+              $('#progress').attr('value',2);
+               fetch_banner_data();
+            });
+  }
+
+  var fetch_banner_data = function(){
+    $("#progress_description").html("배너 정보를 얻어옵니다");
+    $.ajax({
+      url: "/admin/load_banner_data",
+      context: document.body
+    }).done(function (data) {
+              cars_data.banner = data;
+              $('#progress').attr('value',3);
+              fetch_event_data();
+            });
+  }
+
+  var fetch_event_data = function(){
+    $("#progress_description").html("이벤트 정보를 얻어옵니다");
+    $.ajax({
+      url: "/admin/load_event_data",
+      context: document.body
+    }).done(function (data) {
+              cars_data.event = data;
+              $('#progress').attr('value',4);
+              render_cars_data();
+            });
+  }
+
+  var render_cars_data = function() {
+
+    var trth = "<tr>";
+    <% %w(image modelCode brand modelName mileage fuel price).each do |code| %>
+    trth+= "<th><%= code %></th>"
+    <% end %>
+    trth+="</tr>";
+
+
+    var msg = Object.keys(cars_data.brand).length + "개의 브랜드, "
+            + Object.keys(cars_data.model).length + "개의 모델,"
+            + Object.keys(cars_data.banner).length + "개의 배너,"
+            + Object.keys(cars_data.event).length + "개의 이벤트 정보가 로드되었습니다."
+    $("#progress_description").html(msg);
+
+    $('#model_table').html(trth);
+
+    for( var modelcode in cars_data.model ){
+      var row = "<tr>";
+      var kv = cars_data.model[modelcode];
+      row += "<td>"+ kv['image'] + "</td>"
+      row += "<td>"+ modelcode + "</td>"
+      row += "<td>"+ kv['brandcode'] + "</td>"
+      row += "<td>"+ kv['name'] + "</td>"
+      row += "<td>"+ kv['mileage'] + "</td>"
+      row += "<td>"+ kv['fuel'] + "</td>"
+      row += "<td>"+ kv['price'] + "</td>"
+      row += "</tr>";
+
+      $('#model_table tr:last').after(row);
+    }
+    $('#update_button').removeAttr('disabled');
+  }
+
+  var update_data = function(){
+
+    $.ajax({
+      url: "/admin/update_data_model",
+      type: "POST",
+      dataType: "json",
+      data: {"car_data": cars_data }
+    }).done(function () {
+              alert("OK");
+            });
+  }
+
+</script>

@@ -25,75 +25,10 @@ var cars_data = {
     'kia': {'title': '기아', 'models':[]}
 };*/
 
-var cars_data = {};
-
 var page_data = {
     top: 0
 };
 
-function bland_data_callback(data) {
-    console.log('bland data loaded');
-    cars_data = {};
-    var entry = data.feed.entry;
-    for (var i in entry){
-        try {
-            var code = entry[i].gsx$brandcode.$t;
-            var title = entry[i].gsx$title.$t;
-            var logo = entry[i].gsx$logo.$t;
-            cars_data[code] = {title: title, models: [], logo: logo};
-        }
-        catch(e){}
-    }
-    var url = "https://spreadsheets.google.com/feeds/list/1tb0Fy74CxayHuSBUCd9OO5_hpvvXKuTCe8nOgNDi87M/od6/public/values?alt=json-in-script&callback=car_data_callback"
-    loadScript(url);
-}
-
-function car_data_callback(data) {
-    console.log('car model data loaded');
-    var entry = data.feed.entry;
-    for (var i in entry){
-        try{
-            var brand_code = entry[i].gsx$brandcode.$t;
-            var model_code = entry[i].gsx$modelcode.$t;
-            var model_name = entry[i].gsx$modelname.$t;
-            var image = entry[i].gsx$image.$t;
-            var mileage = entry[i].gsx$mileage.$t;
-            var fuel = entry[i].gsx$fuel.$t;
-
-            if (cars_data[brand_code] != null) {
-                cars_data[brand_code].models.push ({
-                    code: model_code,
-                    name: model_name,
-                    image: image,
-                    mileage : mileage,
-                    fuel: fuel
-                });
-            }
-        }
-        catch(e){}
-    }
-    init_brand_icons();
-}
-
-function init_brand_icons() {
-
-    // 브랜드 아이콘 템플릿 렌더링
-    var $el_brand_container = $('.brand_icons');
-    var brand_icons_template = Handlebars.compile($("#brand_icons_template").html());
-    for(var brand in cars_data){
-        var $li = $(brand_icons_template({'brand':brand}));
-        $li.data(cars_data[brand]);
-        $el_brand_container.append($li);
-    }
-    // 브랜드 아이콘 클릭 이벤트
-    $(".brand_icons a[data-brand]").on('click', function(){
-        var brand = $(this).data('brand');
-        var scrollTop = $(document).scrollTop();
-
-        History.pushState({scrollTop:scrollTop}, null, "");
-        History.pushState({p:'brand',brand:brand}, null, "");
-    });
-}
 
 (function(window){
     // Bind to StateChange Event
@@ -116,11 +51,7 @@ function init_brand_icons() {
         }
     });
 
-    var url = "https://spreadsheets.google.com/feeds/list/1jUtKI4UhHgBv2NrX0TQFFGBuqw7LpY2Li2VCo6EE5tA/od6/public/values?alt=json-in-script&callback=bland_data_callback"
-    loadScript(url);
 
-
-    /* move to handler
     // 브랜드 아이콘 템플릿 렌더링
     var $el_brand_container = $('.brand_icons');
     var brand_icons_template = Handlebars.compile($("#brand_icons_template").html());
@@ -129,7 +60,6 @@ function init_brand_icons() {
         $li.data(cars_data[brand]);
         $el_brand_container.append($li);
     }
-    */
 
 })(window);
 
@@ -157,7 +87,6 @@ $(function(){
     });
 
 
-    /* move to handler
     // 브랜드 아이콘 클릭 이벤트
     $(".brand_icons a[data-brand]").on('click', function(){
         var brand = $(this).data('brand');
@@ -166,7 +95,6 @@ $(function(){
         History.pushState({scrollTop:scrollTop}, null, "");
         History.pushState({p:'brand',brand:brand}, null, "");
     });
-    */
 
     // 이용자약관 클릭 이벤트
     $('.btn_agreement').on('click', function(){
