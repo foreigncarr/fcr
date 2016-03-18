@@ -38,7 +38,7 @@
 
         <% if banner %>
           <a href="<%= banner['link'] %>" class="bn_whiteday">
-            <img src="http://d39imkxg0jo8t9.cloudfront.net/<%= banner['image'] %>" alt="<%= banner['alt'] %>"/>
+            <img src="http://d39imkxg0jo8t9.cloudfront.net/events/<%= banner['image'] %>" alt="<%= banner['alt'] %>"/>
           </a>
         <% end %>
       </div>
@@ -56,7 +56,7 @@
         <div id='slider' class="slides">
           <%@fcr_data['event'].values.select{|n| n['enable'].upcase == 'YES' }.each do |item|%>
             <a href="<%= item['link']%>">
-              <img src="http://d39imkxg0jo8t9.cloudfront.net/<%= item['image']%>" alt="<%= item['alt']%>" />
+              <img src="http://d39imkxg0jo8t9.cloudfront.net/images/<%= item['image']%>" alt="<%= item['alt']%>" />
             </a>
           <%end%>
         </div>
@@ -154,7 +154,7 @@
     {{#models}}
     <div class="cars_item">
       <div class="car_name">{{name}}</div>
-      <div class="car_image"><img style="min-height:100px;padding-bottom: 30px" src="http://d39imkxg0jo8t9.cloudfront.net/cars/{{image}}" /></div>
+      <div class="car_image"><img style="min-height:100px;padding-bottom: 50px" src="http://d39imkxg0jo8t9.cloudfront.net/cars/{{image}}" /></div>
       <dl>
         <dt>연비</dt>
         <dd class="car_mileage">{{mileage}}</dd>
