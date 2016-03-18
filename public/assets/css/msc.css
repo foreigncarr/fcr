@@ -80,7 +80,7 @@ hr {margin:0px}
 
 .msc_modal {position:absolute; display:none; left:50%; margin-left:-320px; top:0px; padding-top:70px; width:640px; height:100%; background-color:#ddd;}
 .msc_modal_tit {position:absolute; left:0px; top:0px; width:100%; height:70px; line-height:70px; text-align:center; color:#222; font-size:40px; border-bottom:1px solid #ccc; background-color:#fff; vertical-align:middle;}
-.msc_modal_close {position:absolute; left:15px; top:16px; width:35px; height:35px; display:block; background:url('http://d39imkxg0jo8t9.cloudfront.net/btn_modal_close.png') no-repeat;}
+.msc_modal_close {position:absolute; left:15px; top:16px; width:35px; height:35px; display:block; background:url('http://d39imkxg0jo8t9.cloudfront.net/btn_modal_back.png') no-repeat;}
 .cars_container {height:100%; overflow:auto;}
 .cars_container .cars_item {position:relative; margin:25px; padding:25px; border:1px solid #ddd; background-color:#fff}
 .cars_container .cars_item .car_name {font-size:35px}
