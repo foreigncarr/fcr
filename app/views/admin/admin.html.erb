@@ -1,5 +1,5 @@
 <style type="text/css">
-  div.msc_modal{ width:1000px; margin-left:-500px}
+  div.msc_modal { width:800px; margin-left:-400px;}
   table.gridtable {
     font-family: verdana,arial,sans-serif;
     font-size:11px;
@@ -22,14 +22,82 @@
     border-color: #666666;
     background-color: #ffffff;
   }
+
+  .clear{
+    clear: both;
+    height: 0;
+    visibility: hidden;
+    display: block;
+  }
+
+  #tab-container{
+    font-family: Arial,  Verdana, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height:14px;
+    margin: 3em auto;
+    width: 700px;
+    overflow: hidden;
+  }
+  #tab-container ul{
+    list-style: none;
+    list-style-position: outside;
+    width: 100%;
+  }
+  #tab-container ul.tab-menu li{
+    display: block;
+    float: left;
+    position: relative;
+    font-weight: 300;
+    padding: 5px 10px 5px 10px;
+    background: #eee;
+    border: 1px solid #ddc;
+    border-bottom: none;
+    border-width: 1px;
+    color: #999;
+    cursor: default;
+    height: 24px;
+    margin-bottom: -1px;
+    margin-right: 5px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+  #tab-container ul.tab-menu li.active{
+    background: #fff;
+    color: #0088CC;
+    border-bottom: 0;
+  }
+  .tab-top-border {
+    border-bottom: 1px solid #d0ccc9;
+  }
+  .tab-content{
+    margin: 0 auto;
+    background: #efefef;
+    background: #fff;
+    border: 1px solid #ddc;
+    border-top-style: none;
+    text-align: left;
+    padding: 10px;
+    padding-bottom: 20px;
+    font-size: 11px;
+    display: none;
+    overflow: scroll;
+  }
+  #tab-container div.active{
+    display: block;
+  }
+  .tab-content h1{
+    line-height: 1em;
+    height: 16px;
+    font-size: 12px;
+  }
 </style>
 
-<div class="msc_modal" style="display:block">
+<div class="msc_modal" style="display:block;">
   <div class="msc_modal_tit">사이트 관리</div>
   <div class="msc_container" style="display:block"></div>
 
   <% if not @authorized %>
-  <div id='login_box' style="display: block;margin:20px;background: #efefef">
+  <div id='login_box' style="display: block;margin-top:20px;background: #efefef">
     <div style="display: inline-block; margin:100px 200px 100px 300px">
       <form name='password' method="post" aciton="./admin/login">
         password : <input name='password' id='password_box' type="password" style="width:250px"/>
@@ -38,21 +106,44 @@
     </div>
   </div>
   <% else %>
-  <div id='admin_box' style="display: block;margin:20px;background: #efefef">
+  <div id='admin_box' style="display: block;margin-top:20px;background: #efefef">
     <div style="width: 100%; display: inline-block; padding: 50px 20px 50px 20px">
       <button type="button" id='import_button' onclick="javascript:start_fetch_data()">데이터 가져오기</button>
-      <progress id='progress' max="4" value="0" style="width:800px"></progress>
+      <progress id='progress' max="4" value="0" style="width:600px"></progress>
       <br/> <br/>
 
       <div id='progress_description' style="font-size: 12px; color:#afafaf;margin-left:50px">
-
       </div>
-      <br/><br/>
 
-      <table id='model_table' class="gridtable">
-      </table>
-      <br/><br/>
-      <button onclick="javascript:update_data()" id='update_button' type="button" disabled style="display:block; height: 40px; width: 150px;float:right; color:#5774af; margin-right: 50px">적용하기</button>
+      <div id="tab-container" style="display: none">
+        <ul class="tab-menu">
+          <li id="brand">브랜드</li>
+          <li id="model" class="active">모델</li>
+          <li id="banner">배너</li>
+          <li id="event">추천/이벤트</li>
+        </ul>
+        <div class="clear"></div>
+        <div class="tab-top-border"></div>
+        <div id="brand-tab" class="tab-content">
+          <table id='brand_table' class="gridtable">
+          </table>
+        </div>
+        <div id="model-tab" class="tab-content active">
+          <table id='model_table' class="gridtable">
+          </table>
+        </div>
+        <div id="banner-tab" class="tab-content">
+          <table id='banner_table' class="gridtable">
+          </table>
+        </div>
+        <div id="event-tab" class="tab-content">
+          <table id='event_table' class="gridtable">
+          </table>
+        </div>
+      </div>
+
+      <br/>
+      <button onclick="javascript:update_data()" id='update_button' type="button" disabled style="display:none; height: 40px; width: 150px;float:right; color:#5774af; margin-right: 50px">적용하기</button>
     </div>
   </div>
 
@@ -116,19 +207,57 @@
   }
 
   var render_cars_data = function() {
+    var msg = Object.keys(cars_data.brand).length + "개의 브랜드, "
+            + Object.keys(cars_data.model).length + "개의 모델,"
+            + Object.keys(cars_data.banner).length + "개의 배너,"
+            + Object.keys(cars_data.event).length + "개의 이벤트 정보가 로드되었습니다."
+    $("#progress_description").html(msg);
+
+    render_brand_table();
+    render_model_table();
+    render_banner_table();
+    render_event_table();
+
+    $('#update_button').removeAttr('disabled');
+    $('#tab-container').fadeIn();
+    $('#update_button').fadeIn();
+  }
+
+
+  var render_table = function(table_id, hash, keys){
+
+    var trth = "<tr>";
+    for(var i in keys) trth+= "<th>"+keys[i]+"</th>"
+    trth+="</tr>";
+
+    $('#'+table_id).html(trth);
+
+    for( var k in hash ){
+      var row = "<tr>";
+      var kv = hash[k];
+      debugger;
+      for(var i in keys) row += "<td>"+ kv[keys[i].toLowerCase()] + "</td>"
+      $('#'+table_id +' tr:last').after(row);
+    }
+  }
+
+  var render_brand_table = function(){
+    return render_table('brand_table', cars_data.brand,
+            "brandCode title logo".split(" ")
+    );
+  }
+
+  var render_model_table = function(){
+
+    return render_table('model_table', cars_data.model,
+            "image modelCode brandCode name mileage fuel price".split(" ")
+    );
 
     var trth = "<tr>";
     <% %w(image modelCode brand modelName mileage fuel price).each do |code| %>
     trth+= "<th><%= code %></th>"
     <% end %>
     trth+="</tr>";
-
-
-    var msg = Object.keys(cars_data.brand).length + "개의 브랜드, "
-            + Object.keys(cars_data.model).length + "개의 모델,"
-            + Object.keys(cars_data.banner).length + "개의 배너,"
-            + Object.keys(cars_data.event).length + "개의 이벤트 정보가 로드되었습니다."
-    $("#progress_description").html(msg);
 
     $('#model_table').html(trth);
 
@@ -146,7 +275,18 @@
 
       $('#model_table tr:last').after(row);
     }
-    $('#update_button').removeAttr('disabled');
+  }
+
+  var render_banner_table = function(){
+    return render_table('banner_table', cars_data.banner,
+            "image link alt enable".split(" ")
+    );
+  }
+
+  var render_event_table = function(){
+    return render_table('event_table', cars_data.event,
+            "image link alt enable".split(" ")
+    );
   }
 
   var update_data = function(){
@@ -157,8 +297,27 @@
       dataType: "json",
       data: {"car_data": cars_data }
     }).done(function () {
-              alert("OK");
+              alert("데이터를 사이트에 적용하였습니다!!!");
             });
   }
+
+  $(document).ready(function(){
+    var activeTabIndex = 1;
+    var tabNames = ["brand","model","banner", "event"];
+
+    $(".tab-menu > li").click(function(e){
+      for(var i=0;i<tabNames.length;i++) {
+        if(e.target.id == tabNames[i]) {
+          activeTabIndex = i;
+        } else {
+          $("#"+tabNames[i]).removeClass("active");
+          $("#"+tabNames[i]+"-tab").css("display", "none");
+        }
+      }
+      $("#"+tabNames[activeTabIndex]+"-tab").fadeIn();
+      $("#"+tabNames[activeTabIndex]).addClass("active");
+      return false;
+    });
+  });
 
 </script>
