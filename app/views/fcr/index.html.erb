@@ -52,13 +52,17 @@
         </h2>
       </div>
 
-      <div class="slides">
-        <%@fcr_data['event'].values.select{|n| n['enable'].upcase == 'YES' }.each do |item|%>
-          <a href="<%= item['link']%>">
-            <img src="http://d39imkxg0jo8t9.cloudfront.net/<%= item['image']%>" alt="<%= item['alt']%>" />
-          </a>
-        <%end%>
+      <div id='slide_container'>
+        <div id='slider' class="slides">
+          <%@fcr_data['event'].values.select{|n| n['enable'].upcase == 'YES' }.each do |item|%>
+            <a href="<%= item['link']%>">
+              <img src="http://d39imkxg0jo8t9.cloudfront.net/<%= item['image']%>" alt="<%= item['alt']%>" />
+            </a>
+          <%end%>
+        </div>
       </div>
+
+
     </div>
   </div>
 

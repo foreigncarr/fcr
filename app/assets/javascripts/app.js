@@ -26,7 +26,8 @@ var cars_data = {
 };*/
 
 var page_data = {
-    top: 0
+    top: 0,
+    slide_html: ''
 };
 
 
@@ -73,18 +74,8 @@ $(function(){
     //$('.intro_area').addClass('bg' + intro_bg_no);
 
     // 스와이프
-    $('.slides').slidesjs({
-        navigation:{active:false},
-        width: 568,
-        height: 314,
-        play: {
-            auto: true,
-            interval: 3000,
-            swap: false,
-            pauseOnHover: false,
-            restartDelay: 5000
-        }
-    });
+    page_data.slide_html = $('#slide_container').html();
+    init_slider();
 
 
     // 브랜드 아이콘 클릭 이벤트
@@ -148,4 +139,26 @@ function close_modal(){
     $('.msc_modal').hide();
     $('.content_wrap').show();
     $(document).scrollTop(page_data.top);
+    reinit_slider();
+}
+
+function reinit_slider(){
+    debugger;
+    $('#slide_container').html(page_data.slide_html);
+    init_slider();
+}
+
+function init_slider(){
+    $('#slider').slidesjs({
+        navigation:{active:false},
+        width: 568,
+        height: 314,
+        play: {
+            auto: true,
+            interval: 3000,
+            swap: true,
+            pauseOnHover: true,
+            restartDelay: 2500
+        }
+    });
 }
