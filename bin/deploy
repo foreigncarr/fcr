@@ -20,7 +20,7 @@ end
 def deploy
   git_src_dir = "#{$app_dir}/fcr"
   aws_cmd "ruby --version"
-  aws_cmd "cd #{git_src_dir}; git pull"
+  aws_cmd "cd #{git_src_dir}; git reset --hard origin/master;git pull"
   aws_cmd "cd #{git_src_dir};RAILS_ENV=production bundle install"
   aws_cmd "cd #{git_src_dir};RAILS_ENV=production bundle exec rake assets:precompile"
 
