@@ -22,11 +22,11 @@ class AdminController < ApplicationController
   end
 
   def load_banner_data
-    render :json => {}
+    render :json => CarData.fetch_banner_data
   end
 
   def load_event_data
-    render :json => {}
+    render :json => CarData.fetch_event_data
   end
 
   def update_data_model

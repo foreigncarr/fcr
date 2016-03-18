@@ -36,11 +36,19 @@ class CarData
   end
 
   def self.fetch_banner_data
-
+    url = 'https://spreadsheets.google.com/feeds/list/173OIlpVI-p0lT2YTkexIwfo8E-OMBtj9n3R_Wjxs8nU/od6/public/values?alt=json'
+    raw = Oj.load RestClient.get url
+    banner = Hash[extract_entry_from(raw, %w(image link alt enable)).map.with_index do |h, i|
+      ["banner_#{i}", {image: h['image'], link: h['link'], alt: h['alt'], enable: h['enable']}]
+    end]
   end
 
   def self.fetch_event_data
-
+    url = 'https://spreadsheets.google.com/feeds/list/1yj8yQ9JR4nFVOWEf-8BBTJ5uSaJ1xEZmDoi9r-CVl_E/od6/public/values?alt=json'
+    raw = Oj.load RestClient.get url
+    event = Hash[extract_entry_from(raw, %w(image link alt enable)).map.with_index do |h, i|
+      ["event_#{i}", {image: h['image'], link: h['link'], alt: h['alt'], enable: h['enable']}]
+    end]
   end
 
   private
