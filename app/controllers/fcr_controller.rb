@@ -6,7 +6,7 @@ class FcrController < ApplicationController
     @car_data = @fcr_data['brand'].clone;
     (@fcr_data['model'] ||[]).each do |k, v|
       begin
-        (@car_data[v['brandcode']]['models'] ||= []).push(
+        (@car_data[v['brandcode'].downcase]['models'] ||= []).push(
             {
                 code:    k,
                 name:    v['name'],
