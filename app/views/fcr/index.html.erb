@@ -33,7 +33,15 @@
 
   <div class="area_container banner_area">
     <div class="area_body">
-      <div class="center"><a href="#" class="bn_whiteday"><img src="http://d39imkxg0jo8t9.cloudfront.net/bn_whiteday.jpg" /></a></div>
+      <div class="center">
+        <% banner = @fcr_data['banner'].values.select { |n| n['enable'].upcase == 'YES' }.clone.shuffle.first %>
+
+        <% if banner %>
+          <a href="<%= banner['link'] %>" class="bn_whiteday">
+            <img src="http://d39imkxg0jo8t9.cloudfront.net/<%= banner['image'] %>" alt="<%= banner['alt'] %>"/>
+          </a>
+        <% end %>
+      </div>
 
       <span class="blank_line"></span>
 
@@ -45,9 +53,11 @@
       </div>
 
       <div class="slides">
-        <a href="#"><img src="http://d39imkxg0jo8t9.cloudfront.net/svc_weddingcar.jpg" alt="웨딩카 서비스" /></a>
-        <a href="#"><img src="http://d39imkxg0jo8t9.cloudfront.net/svc_weddingcar.jpg" alt="웨딩카 서비스" /></a>
-        <a href="#"><img src="http://d39imkxg0jo8t9.cloudfront.net/svc_weddingcar.jpg" alt="웨딩카 서비스" /></a>
+        <%@fcr_data['event'].values.select{|n| n['enable'].upcase == 'YES' }.each do |item|%>
+          <a href="<%= item['link']%>">
+            <img src="http://d39imkxg0jo8t9.cloudfront.net/<%= item['image']%>" alt="<%= item['alt']%>" />
+          </a>
+        <%end%>
       </div>
     </div>
   </div>
@@ -162,3 +172,4 @@
 <!--<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>-->
 <script type="text/javascript" src="assets/js/handlebars/handlebars.min.js"></script>
 <!-- <script type="text/javascript" src="assets/js/app.js"></script>  -->
+

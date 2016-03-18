@@ -79,10 +79,10 @@ $(function(){
         height: 314,
         play: {
             auto: true,
-            interval: 1500,
-            swap: true,
-            pauseOnHover: true,
-            restartDelay: 2500
+            interval: 3000,
+            swap: false,
+            pauseOnHover: false,
+            restartDelay: 5000
         }
     });
 
