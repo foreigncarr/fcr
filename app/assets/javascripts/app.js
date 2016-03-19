@@ -6,7 +6,6 @@ var loadScript = function(url){
     head.appendChild(script);
 };
 
-
 /*
 var cars_data = {
     'bentley': {'title': '벤틀리', 'models':[]},
@@ -78,6 +77,21 @@ $(function(){
     init_slider();
 
 
+    $(".action_link").on('click', function(){
+        var action = $(this).data('action');
+        var area = $(this).data('area');
+        var brand = $(this).data('brand');
+        var model = $(this).data('model');
+
+        $.ajax({
+            url: "/log/submit",
+            type: "POST",
+            dataType: "json",
+            data: {"action_code": action, "area":area, "brand":brand, "model":model }
+        });
+    });
+
+
     // 브랜드 아이콘 클릭 이벤트
     $(".brand_icons a[data-brand]").on('click', function(){
         var brand = $(this).data('brand');
@@ -118,6 +132,20 @@ function open_cars_modal(brand){
 
     $('.msc_container').hide();
     $('.cars_container').show().html(html);
+    $('.cars_container .action_link').on('click', function(){
+
+        var action = $(this).data('action');
+        var area = $(this).data('area');
+        var brand = $(this).data('brand');
+        var model = $(this).data('model');
+
+        $.ajax({
+            url: "/log/submit",
+            type: "POST",
+            dataType: "json",
+            data: {"action_code": action, "area":area, "brand":brand, "model":model }
+        });
+    });
     open_modal();
 }
 

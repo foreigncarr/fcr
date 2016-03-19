@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   match 'guide_process' => 'fcr#rental_process', via: [:get, :post]
   match 'guide_return' => 'fcr#return_process', via: [:get, :post]
   match 'guide_insurance' => 'fcr#insurance_guide', via: [:get, :post]
-
+  match 'log/submit' => 'fcr#submit_log', via: [:post]
   match 'admin' => 'admin#admin', via: [:get, :post]
 
   match 'admin/load_brand_data' => 'admin#load_brand_data', via: [:get, :post]
