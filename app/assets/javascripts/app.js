@@ -82,6 +82,7 @@ $(function(){
         var area = $(this).data('area');
         var brand = $(this).data('brand');
         var model = $(this).data('model');
+        var link = $(this).attr('href');
 
         logging(action, brand, model, area);
     });
@@ -120,7 +121,7 @@ $(function(){
 });
 
 
-function logging(action, brand, model, area){
+function logging(action, brand, model, area, link) {
     $.ajax({
         url: "/log/submit",
         type: "POST",
@@ -128,11 +129,10 @@ function logging(action, brand, model, area){
         data: {"action_code": action, "area":area, "brand":brand, "model":model }
     });
 
-    var ga_action = ''
-    if( brand ) ga_action = brand;
-    if( model ) ga_action+= ' ' + model;
+    var ga_action = '';
+    if( brand ) ga_action = '[' + brand + ']';
+    if( model ) ga_action += ' '+ model;
     var ga_category = action;
-    var link = $(this).attr('href');
     if (link && link.startsWith('http') && (action == '배너클릭'||action == '추천/이벤트클릭')){
         ga_action = link;
     }
@@ -158,6 +158,7 @@ function open_cars_modal(brand){
         var area = $(this).data('area');
         var brand = $(this).data('brand');
         var model = $(this).data('model');
+        var link = $(this).attr('href');
 
         logging(action, brand, model, area);
     });
