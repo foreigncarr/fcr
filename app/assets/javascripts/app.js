@@ -83,25 +83,7 @@ $(function(){
         var brand = $(this).data('brand');
         var model = $(this).data('model');
 
-        $.ajax({
-            url: "/log/submit",
-            type: "POST",
-            dataType: "json",
-            data: {"action_code": action, "area":area, "brand":brand, "model":model }
-        });
-
-        var ga_action = brand + ' ' + model;
-        var ga_category = action;
-        var link = $(this).attr('href');
-        if (link && link.startsWith('http') && (action == '배너클릭'||action == '추천/이벤트클릭')){
-            ga_action = link;
-        }
-
-        ga('send', 'event', {
-            eventCategory: ga_category,
-            eventAction: ga_action,
-            transport: 'beacon'
-        });
+        logging(action, brand, model, area);
     });
 
 
@@ -137,6 +119,31 @@ $(function(){
     })
 });
 
+
+function logging(action, brand, model, area){
+    $.ajax({
+        url: "/log/submit",
+        type: "POST",
+        dataType: "json",
+        data: {"action_code": action, "area":area, "brand":brand, "model":model }
+    });
+
+    var ga_action = ''
+    if( brand ) ga_action = brand;
+    if( model ) ga_action+= ' ' + model;
+    var ga_category = action;
+    var link = $(this).attr('href');
+    if (link && link.startsWith('http') && (action == '배너클릭'||action == '추천/이벤트클릭')){
+        ga_action = link;
+    }
+
+    ga('send', 'event', {
+        eventCategory: ga_category,
+        eventAction: ga_action,
+        transport: 'beacon'
+    });
+}
+
 function open_cars_modal(brand){
     $('.msc_modal_tit').html(cars_data[brand].title);
 
@@ -152,25 +159,7 @@ function open_cars_modal(brand){
         var brand = $(this).data('brand');
         var model = $(this).data('model');
 
-        $.ajax({
-            url: "/log/submit",
-            type: "POST",
-            dataType: "json",
-            data: {"action_code": action, "area":area, "brand":brand, "model":model }
-        });
-
-        var ga_action = brand + ' ' + model;
-        var ga_category = action;
-        var link = $(this).attr('href');
-        if (link && link.startsWith('http') && (action == '배너클릭'||action == '추천/이벤트클릭')){
-            ga_action = link;
-        }
-
-        ga('send', 'event', {
-            eventCategory: ga_category,
-            eventAction: ga_action,
-            transport: 'beacon'
-        });
+        logging(action, brand, model, area);
     });
     open_modal();
 }
