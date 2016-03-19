@@ -89,6 +89,21 @@ $(function(){
             dataType: "json",
             data: {"action_code": action, "area":area, "brand":brand, "model":model }
         });
+
+        var ga_label = brand + ' ' + model;
+        var ga_category = 'Action';
+        var link = $(this).attr('href');
+        if (link && link.startsWith('http')){
+            ga_label = link;
+            ga_category = 'Outbound';
+        }
+
+        ga('send', 'event', {
+            eventCategory: ga_category,
+            eventAction: action,
+            eventLabel: ga_label,
+            transport: 'beacon'
+        });
     });
 
 
@@ -144,6 +159,21 @@ function open_cars_modal(brand){
             type: "POST",
             dataType: "json",
             data: {"action_code": action, "area":area, "brand":brand, "model":model }
+        });
+
+        var ga_label = brand + ' ' + model;
+        var ga_category = 'Action';
+        var link = $(this).attr('href');
+        if (link && link.startsWith('http')){
+            ga_label = link;
+            ga_category = 'Outbound';
+        }
+
+        ga('send', 'event', {
+            eventCategory: ga_category,
+            eventAction: action,
+            eventLabel: ga_label,
+            transport: 'beacon'
         });
     });
     open_modal();
