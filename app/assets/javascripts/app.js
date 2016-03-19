@@ -129,10 +129,13 @@ function logging(action, brand, model, area, link) {
         data: {"action_code": action, "area":area, "brand":brand, "model":model }
     });
 
-    var ga_action = '';
+    var ga_action = '클릭';
     if( brand ) ga_action = '[' + brand + ']';
     if( model ) ga_action += ' '+ model;
     var ga_category = action;
+
+    debugger;
+
     if (link && link.startsWith('http') && (action == '배너클릭'||action == '추천/이벤트클릭')){
         ga_action = link;
     }
