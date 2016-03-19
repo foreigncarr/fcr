@@ -84,7 +84,7 @@ $(function(){
         var model = $(this).data('model');
         var link = $(this).attr('href');
 
-        logging(action, brand, model, area);
+        logging(action, brand, model, area, link);
     });
 
 
@@ -160,7 +160,7 @@ function open_cars_modal(brand){
         var model = $(this).data('model');
         var link = $(this).attr('href');
 
-        logging(action, brand, model, area);
+        logging(action, brand, model, area, link);
     });
     open_modal();
 }
