@@ -90,18 +90,16 @@ $(function(){
             data: {"action_code": action, "area":area, "brand":brand, "model":model }
         });
 
-        var ga_label = brand + ' ' + model;
-        var ga_category = 'Action';
+        var ga_action = brand + ' ' + model;
+        var ga_category = action;
         var link = $(this).attr('href');
-        if (link && link.startsWith('http')){
-            ga_label = link;
-            ga_category = 'Outbound';
+        if (link && link.startsWith('http') && (action == '배너클릭'||action == '추천/이벤트클릭')){
+            ga_action = link;
         }
 
         ga('send', 'event', {
             eventCategory: ga_category,
-            eventAction: action,
-            eventLabel: ga_label,
+            eventAction: ga_action,
             transport: 'beacon'
         });
     });
@@ -161,18 +159,16 @@ function open_cars_modal(brand){
             data: {"action_code": action, "area":area, "brand":brand, "model":model }
         });
 
-        var ga_label = brand + ' ' + model;
-        var ga_category = 'Action';
+        var ga_action = brand + ' ' + model;
+        var ga_category = action;
         var link = $(this).attr('href');
-        if (link && link.startsWith('http')){
-            ga_label = link;
-            ga_category = 'Outbound';
+        if (link && link.startsWith('http') && (action == '배너클릭'||action == '추천/이벤트클릭')){
+            ga_action = link;
         }
 
         ga('send', 'event', {
             eventCategory: ga_category,
-            eventAction: action,
-            eventLabel: ga_label,
+            eventAction: ga_action,
             transport: 'beacon'
         });
     });
