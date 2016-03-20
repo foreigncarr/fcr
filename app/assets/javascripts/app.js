@@ -78,13 +78,15 @@ $(function(){
 
 
     $(".action_link").on('click', function(){
-        var action = $(this).data('action');
+        var action_category = $(this).data('action-category');
+        var action_detail = $(this).data('action-detail');
         var area = $(this).data('area');
         var brand = $(this).data('brand');
         var model = $(this).data('model');
         var link = $(this).attr('href');
 
-        logging(action, brand, model, area, link);
+
+        logging(action_category, action_detail, brand, model, area, link);
     });
 
 
@@ -121,30 +123,50 @@ $(function(){
 });
 
 
-function logging(action, brand, model, area, link) {
+function logging(category, action_detail, brand, model, area, link) {
     $.ajax({
         url: "/log/submit",
         type: "POST",
         dataType: "json",
-        data: {"action_code": action, "area":area, "brand":brand, "model":model }
+        data: {"action_category": category, "action_detail": action_detail, "area":area, "brand":brand, "model":model }
     });
 
-    var ga_action = '클릭';
-    if( brand ) ga_action = '[' + brand + ']';
-    if( model ) ga_action += ' '+ model;
-    var ga_category = action;
+    var ga_cateogry = '';
+    var ga_action   = '클릭';
+    var ga_label    = '';
+
+    /*
+    * 브랜드선택 => pageview : brand
+    *  => ACTION Brand Brand
+    *
+    * 전화상담, 카톡상담, 선예약상담
+    *  => 상담링크 ACTION LINK
+    *
+    * 배너클릭, 이벤트/추천클릭
+    *  => ACTION ALT LINK
+    *
+    * 모델선택/주문 => pageview : brand/model/order
+    *  => ACTION MODEL MODEL
+    *
+    * */
+
 
     debugger;
 
-    if (link && link.startsWith('http') && (action == '배너클릭'||action == '추천/이벤트클릭')){
-        ga_action = link;
+    var gc_label = action_detail;
+    if (link && link.startsWith('http') && model == null ){
+        ga_label = link;
     }
 
     ga('send', 'event', {
-        eventCategory: ga_category,
-        eventAction: ga_action,
+        eventCategory: category,
+        eventAction: action_detail,
         transport: 'beacon'
     });
+
+    if ( category == '브랜드선택' ) {
+
+    }
 }
 
 function open_cars_modal(brand){
@@ -157,13 +179,15 @@ function open_cars_modal(brand){
     $('.cars_container').show().html(html);
     $('.cars_container .action_link').on('click', function(){
 
-        var action = $(this).data('action');
+        var action_category = $(this).data('action-category');
+        var action_detail = $(this).data('action-detail');
         var area = $(this).data('area');
         var brand = $(this).data('brand');
         var model = $(this).data('model');
         var link = $(this).attr('href');
 
-        logging(action, brand, model, area, link);
+
+        logging(action_category, action_detail, brand, model, area, link);
     });
     open_modal();
 }

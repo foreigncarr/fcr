@@ -62,8 +62,9 @@ class FcrController < ApplicationController
   end
 
   def submit_log
-    action = params[:action_code]
-    stat(action)
+    action_detail = params[:action_detail]
+    action_category = params[:action_category].presence || action
+    stat(action_detail, action_category)
     render :json => 'OK'
   end
 end
