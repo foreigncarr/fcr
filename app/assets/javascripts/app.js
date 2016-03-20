@@ -186,9 +186,12 @@ function open_cars_modal(brand){
         var model = $(this).data('model');
         var link = $(this).attr('href');
 
-
         logging(action_category, action_detail, brand, model, area, link);
     });
+
+    ga('set', 'page', '/'+brand);
+    ga('send', 'pageview');
+
     open_modal();
 }
 
@@ -210,6 +213,10 @@ function close_modal(){
     $('.msc_modal').hide();
     $('.content_wrap').show();
     $(document).scrollTop(page_data.top);
+
+    ga('set', 'page', '/');
+    ga('send', 'pageview');
+
     reinit_slider();
 }
 
