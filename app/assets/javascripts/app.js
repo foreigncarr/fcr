@@ -131,29 +131,7 @@ function logging(category, action_detail, brand, model, area, link) {
         data: {"action_category": category, "action_detail": action_detail, "area":area, "brand":brand, "model":model }
     });
 
-    var ga_cateogry = '';
-    var ga_action   = '클릭';
-    var ga_label    = '';
-
-    /*
-    * 브랜드선택 => pageview : brand
-    *  => ACTION Brand Brand
-    *
-    * 전화상담, 카톡상담, 선예약상담
-    *  => 상담링크 ACTION LINK
-    *
-    * 배너클릭, 이벤트/추천클릭
-    *  => ACTION ALT LINK
-    *
-    * 모델선택/주문 => pageview : brand/model/order
-    *  => ACTION MODEL MODEL
-    *
-    * */
-
-
-    debugger;
-
-    var gc_label = action_detail;
+    var ga_label = action_detail;
     if (link && link.startsWith('http') && model == null ){
         ga_label = link;
     }
@@ -161,12 +139,9 @@ function logging(category, action_detail, brand, model, area, link) {
     ga('send', 'event', {
         eventCategory: category,
         eventAction: action_detail,
+        eventLabel: ga_label,
         transport: 'beacon'
     });
-
-    if ( category == '브랜드선택' ) {
-
-    }
 }
 
 function open_cars_modal(brand){
@@ -188,6 +163,8 @@ function open_cars_modal(brand){
 
         logging(action_category, action_detail, brand, model, area, link);
     });
+
+    $('head title').html("Mysupercar::" + cars_data[brand].title);
 
     ga('set', 'page', '/'+brand);
     ga('send', 'pageview');
@@ -214,6 +191,7 @@ function close_modal(){
     $('.content_wrap').show();
     $(document).scrollTop(page_data.top);
 
+    $('head title').html("Mysupercar");
     ga('set', 'page', '/');
     ga('send', 'pageview');
 
