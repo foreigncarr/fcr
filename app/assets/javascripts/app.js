@@ -199,18 +199,20 @@ function close_modal(){
 }
 
 function reinit_slider(){
-    debugger;
     $('#slide_container').html(page_data.slide_html);
     init_slider();
 }
 
 function init_slider(){
+    var max = $('#slider li').length;
+    var start = Math.floor((Math.random() * 5) + 1);
     $('#slider').slidesjs({
         navigation:{active:false},
         width: 568,
         height: 314,
+        start: start,
         play: {
-            auto: true,
+            auto: false,
             interval: 3000,
             swap: true,
             pauseOnHover: true,
