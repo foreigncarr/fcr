@@ -124,6 +124,10 @@ $(function(){
 
 
 function logging(category, action_detail, brand, model, area, link) {
+    debugger;
+    if (category == null) category = action_detail;
+    if (action_detail == null) action_detail = category;
+
     $.ajax({
         url: "/log/submit",
         type: "POST",
