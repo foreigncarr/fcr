@@ -32,7 +32,9 @@ class FcrController < ApplicationController
                 image:   v['image'],
                 mileage: v['mileage'],
                 fuel:    v['fuel'],
-                price:   v['price']
+                price:   v['price'],
+                preorderlink: v['preorderlink']
+
             })
       rescue
       end
