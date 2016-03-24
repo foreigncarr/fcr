@@ -168,12 +168,12 @@ function open_cars_modal(brand){
         logging(action_category, action_detail, brand, model, area, link);
     });
 
+    open_modal();
+
     $('head title').html("Mysupercar::" + cars_data[brand].title);
 
     ga('set', 'page', '/'+brand);
     ga('send', 'pageview');
-
-    open_modal();
 }
 
 function open_agreement_modal(){
