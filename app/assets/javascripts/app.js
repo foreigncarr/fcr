@@ -171,9 +171,11 @@ function open_cars_modal(brand){
     open_modal();
 
     $('head title').html("Mysupercar::" + cars_data[brand].title);
+    alert("change title");
 
     ga('set', 'page', '/'+brand);
     ga('send', 'pageview');
+    alert("GA");
 }
 
 function open_agreement_modal(){
@@ -185,6 +187,7 @@ function open_agreement_modal(){
 }
 
 function open_modal(){
+    alert("open model");
     page_data.top = $(document).scrollTop();
     $('.msc_modal').show();
     $('.content_wrap').hide();
