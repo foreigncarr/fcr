@@ -13,8 +13,8 @@
       <div class="intro_tail">
         <p class="copy_3 inner">고객이 원하는 다양한 수입차량 보유<br />원하는 시간과 장소로 편리한 탁송 서비스 제공</p>
         <ul class="intro_btns">
-          <li><a href="tel:010-000-0000" role="button" class='action_link' data-action-detail='전화상담' data-area='TOP' >전화상담</a></li>
-          <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button" class='action_link' data-action-detail='카톡상담' data-area='TOP' >1:1카톡</a></li>
+          <li><a href="tel:010-000-0000" role="button"  target="_blank" class='action_link' data-action-detail='전화상담' data-area='TOP' >전화상담</a></li>
+          <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button"  target="_blank" class='action_link' data-action-detail='카톡상담' data-area='TOP' >1:1카톡</a></li>
           <li><a href="http://goo.gl/forms/9pPllNXpMa" role="button" target="_blank" class='action_link' data-action-detail='선예약상담' data-area='TOP' >선예약 상담</a></li>
         </ul>
         <div class="inner">
@@ -37,7 +37,7 @@
         <% banner = @fcr_data['banner'].values.select { |n| n['enable'].upcase == 'YES' }.clone.shuffle.first %>
 
         <% if banner %>
-          <a href="<%= banner['link'] %>" class="bn_whiteday action_link" data-action-category='배너클릭' data-action-detail='<%= banner['alt'] %>' data-area='BANNER' data-alt='<%= banner['alt'] %>' >
+          <a href="<%= banner['link'] %>"  target="_blank" class="bn_whiteday action_link" data-action-category='배너클릭' data-action-detail='<%= banner['alt'] %>' data-area='BANNER' data-alt='<%= banner['alt'] %>' >
             <img src="<%= ImageHelper.url(banner['image'],:events ) %>" alt="<%= banner['alt'] %>"/>
           </a>
         <% end %>
@@ -55,7 +55,7 @@
       <div id='slide_container'>
         <div id='slider' class="slides">
           <%@fcr_data['event'].values.select{|n| n['enable'].upcase == 'YES' }.each do |item|%>
-            <a href="<%= item['link']%>" class='action_link' data-action-category='추천/이벤트클릭' data-action-detail='<%= banner['alt'] %>' data-area='SLIDER' >
+            <a href="<%= item['link']%>"  target="_blank" class='action_link' data-action-category='추천/이벤트클릭' data-action-detail='<%= banner['alt'] %>' data-area='SLIDER' >
               <img src="<%=  ImageHelper.url(item['image'], :events) %>" alt="<%= item['alt']%>" />
             </a>
           <%end%>
@@ -108,8 +108,8 @@
   <div class="area_container link_area">
     <div class="area_body">
       <ul class="link_btns">
-        <li><a href="tel:010-000-0000" role="button" class='action_link' data-action-detail='전화상담' data-area='BOTTOM' >전화상담</a></li>
-        <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button" class='action_link' data-action-detail='카톡상담' data-area='BOTTOM' >1:1카톡</a></li>
+        <li><a href="tel:010-000-0000" role="button"  target="_blank" class='action_link' data-action-detail='전화상담' data-area='BOTTOM' >전화상담</a></li>
+        <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button"  target="_blank" class='action_link' data-action-detail='카톡상담' data-area='BOTTOM' >1:1카톡</a></li>
         <li><a href="http://goo.gl/forms/9pPllNXpMa" role="button" target="_blank" class='action_link' data-action-detail='선예약상담' data-area='BOTTOM' >선예약 상담</a></li>
       </ul>
       <p class="copy_1">마이슈퍼카 <strong>카톡 플러스친구,<br />
@@ -119,10 +119,10 @@
         받으실 수 있습니다
       </p>
       <ul class="share_btns">
-        <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button" class="btn_share_kakao action_link" target="_blank"
+        <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button"  target="_blank" class="btn_share_kakao action_link" target="_blank"
                data-action-detail='카톡공유' data-area='SHARE'>
           <span class="blind">카카오톡</span></a></li>
-        <li><a href="https://www.facebook.com/ilovemysupercar/" role="button" class="btn_share_facebook action_link" target="_blank"
+        <li><a href="https://www.facebook.com/ilovemysupercar/" role="button"  target="_blank" class="btn_share_facebook action_link" target="_blank"
                data-action-detail='페이스북공유' data-area='SHARE'>
           <span class="blind">페이스북</span></a></li>
         <li><a href="#" role="button" class="btn_share_blog action_link" target="_blank"
