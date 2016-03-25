@@ -154,6 +154,8 @@ function open_cars_modal(brand){
     var cars_item_template = Handlebars.compile($("#cars_item_template").html());
     var html = cars_item_template(cars_data[brand]);
 
+    alert("open model1");
+
     $('.msc_container').hide();
     $('.cars_container').show().html(html);
     $('.cars_container .action_link').on('click', function(){
@@ -168,7 +170,7 @@ function open_cars_modal(brand){
         logging(action_category, action_detail, brand, model, area, link);
     });
 
-    alert("open model");
+    alert("open model2");
     open_modal();
 
     $('head title').html("Mysupercar::" + cars_data[brand].title);
