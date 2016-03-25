@@ -84,27 +84,23 @@ $(function(){
         var brand = $(this).data('brand');
         var model = $(this).data('model');
         var link = $(this).attr('href');
-
-
         logging(action_category, action_detail, brand, model, area, link);
     });
 
 
     // 브랜드 아이콘 클릭 이벤트
-    $(".brand_icons a[data-brand]").on('click', function(){
+    $(".brand_icon_link").on('click', function(){
         var brand = $(this).data('brand');
         var scrollTop = $(document).scrollTop();
 
-        History.pushState({scrollTop:scrollTop}, null, "");
-        History.pushState({p:'brand',brand:brand}, null, "");
+        History.pushState({p:'brand', brand:brand, scrollTop:scrollTop}, null, "");
     });
 
     // 이용자약관 클릭 이벤트
     $('.btn_agreement').on('click', function(){
         var scrollTop = $(document).scrollTop();
 
-        History.pushState({scrollTop:scrollTop}, null, "");
-        History.pushState({p:'agreement'}, null, "");
+        History.pushState({p:'agreement', scrollTop:scrollTop}, null, "");
     });
 
     // Escape 모달 닫기
@@ -154,8 +150,6 @@ function open_cars_modal(brand){
     var cars_item_template = Handlebars.compile($("#cars_item_template").html());
     var html = cars_item_template(cars_data[brand]);
 
-    alert("open model1");
-
     $('.msc_container').hide();
     $('.cars_container').show().html(html);
     $('.cars_container .action_link').on('click', function(){
@@ -170,15 +164,11 @@ function open_cars_modal(brand){
         logging(action_category, action_detail, brand, model, area, link);
     });
 
-    alert("open model2");
     open_modal();
 
     $('head title').html("Mysupercar::" + cars_data[brand].title);
-    alert("change title");
-
     ga('set', 'page', '/'+brand);
     ga('send', 'pageview');
-    alert("GA");
 }
 
 function open_agreement_modal(){
@@ -190,7 +180,6 @@ function open_agreement_modal(){
 }
 
 function open_modal(){
-    alert("open model");
     page_data.top = $(document).scrollTop();
     $('.msc_modal').show();
     $('.content_wrap').hide();
