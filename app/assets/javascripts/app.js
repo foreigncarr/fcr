@@ -168,6 +168,7 @@ function open_cars_modal(brand){
         logging(action_category, action_detail, brand, model, area, link);
     });
 
+    alert("open model");
     open_modal();
 
     $('head title').html("Mysupercar::" + cars_data[brand].title);
