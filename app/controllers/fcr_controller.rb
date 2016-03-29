@@ -24,17 +24,24 @@ class FcrController < ApplicationController
     @car_data = @fcr_data['brand'].clone;
     (@fcr_data['model'] ||[]).each do |k, v|
       begin
+
+        original_price = (v['originalprice'] || '').strip
+        discount_price = (v['discountprice'] || '').strip
+        discount_price = original_price unless discount_price.present?
+        discount = original_price != discount_price
+
         (@car_data[v['brandcode'].downcase]['models'] ||= []).push(
             {
-                brand:   v['brandcode'],
-                code:    k,
-                name:    v['name'],
-                image:   v['image'],
-                mileage: v['mileage'],
-                fuel:    v['fuel'],
-                price:   v['price'],
-                preorderlink: v['preorderlink']
-
+                brand:         v['brandcode'],
+                code:          k,
+                name:          v['name'],
+                image:         v['image'],
+                mileage:       v['mileage'],
+                fuel:          v['fuel'],
+                originalprice: original_price,
+                discountprice: discount_price,
+                discountdisplay: discount ? '':'display:none',
+                preorderlink:  v['preorderlink']
             })
       rescue
       end

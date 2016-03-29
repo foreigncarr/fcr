@@ -1,3 +1,19 @@
+<style type="text/css">
+  div.cars_item dd strike {
+    font-size: 18px;
+    color: #F40404;
+    margin-right: 10px;
+  }
+
+  div.cars_item dd .price_discription {
+    font-size: 15px;
+    line-height: 15px;
+    display: block;
+    color: gray;
+    font-weight: 200;
+  }
+</style>
+
 <div class="content_wrap">
 
   <div class="area_container intro_area">
@@ -94,9 +110,9 @@
       <ul class="brand_icons">
         <script id="brand_icons_template" type="text/x-handlebars-template">
           <li>
-            <a data-brand="{{brand}}" class='brand_icon_link action_link' data-action-category='브랜드선택' data-action-detail='{{brand}}' data-area='BRAND_ICONS' >
+            <div data-brand="{{brand}}" class='brand_icon_link action_link' data-action-category='브랜드선택' data-action-detail='{{brand}}' data-area='BRAND_ICONS' >
               <img src="http://d39imkxg0jo8t9.cloudfront.net/brand_logo_{{brand}}.jpg" />
-            </a>
+            </div>
           </li>
         </script>
       </ul>
@@ -168,7 +184,10 @@
         <dt>연비</dt>
         <dd class="car_mileage">{{mileage}}</dd>
         <dt>가격</dt>
-        <dd class="price car_fuel">{{price}}</dd>
+        <dd class="price car_fuel">
+          <strike style='{{discountdisplay}}'>{{originalprice}}</strike>{{discountprice}}
+          <br/><span class='price_discription'>기본 거리 탁송 무료, 부가세 별도</span>
+        </dd>
       </dl>
       <a href="{{preorderlink}}"
          class="car_reserv_btn action_link" target="_blank"

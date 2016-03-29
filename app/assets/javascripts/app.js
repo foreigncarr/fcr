@@ -33,6 +33,7 @@ var page_data = {
 (function(window){
     // Bind to StateChange Event
     History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+
         var State = History.getState(); // Note: We are using History.getState() instead of event.state
 
         if(typeof State.data.scrollTop !== 'undefined') {
@@ -45,6 +46,7 @@ var page_data = {
         if(typeof State.data.p !=='undefined' && State.data.p === 'brand' && typeof State.data.brand !== 'undefined') {
             open_cars_modal(State.data.brand);
         }
+        else close_modal();
 
         if(typeof State.data.p !=='undefined' && State.data.p === 'agreement') {
             open_agreement_modal();
@@ -77,6 +79,7 @@ $(function(){
     init_slider();
 
 
+    History.replaceState(null, null, "");
     $(".action_link").on('click', function(){
         var action_category = $(this).data('action-category');
         var action_detail = $(this).data('action-detail');
@@ -190,11 +193,14 @@ function close_modal(){
     $('.content_wrap').show();
     $(document).scrollTop(page_data.top);
 
+
+
     $('head title').html("Mysupercar");
     ga('set', 'page', '/');
     ga('send', 'pageview');
 
     reinit_slider();
+    History.replaceState(null, null, "");
 }
 
 function reinit_slider(){
@@ -214,7 +220,7 @@ function init_slider(){
             auto: false,
             interval: 3000,
             swap: true,
-            pauseOnHover: true,
+            pauseOnHover: false,
             restartDelay: 2500
         }
     });

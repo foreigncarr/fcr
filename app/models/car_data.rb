@@ -30,8 +30,8 @@ class CarData
   def self.fetch_model_data
     url = 'https://spreadsheets.google.com/feeds/list/1tb0Fy74CxayHuSBUCd9OO5_hpvvXKuTCe8nOgNDi87M/od6/public/values?alt=json'
     raw = Oj.load RestClient.get url
-    model = Hash[extract_entry_from(raw, %w(brandcode modelcode modelname image mileage fuel price preorderlink)).map do |h|
-      [h['modelcode'], {modelcode: h['modelcode'], brandcode: h['brandcode'], name: h['modelname'], image: h['image'], mileage: h['mileage'], fuel: h['fuel'], price: h['price'], preorderlink: h['preorderlink']}]
+    model = Hash[extract_entry_from(raw, %w(brandcode modelcode modelname image mileage fuel originalprice discountprice preorderlink)).map do |h|
+      [h['modelcode'], {modelcode: h['modelcode'], brandcode: h['brandcode'], name: h['modelname'], image: h['image'], mileage: h['mileage'], fuel: h['fuel'], originalprice: h['originalprice'], discountprice: h['discountprice'], preorderlink: h['preorderlink']}]
     end]
   end
 
