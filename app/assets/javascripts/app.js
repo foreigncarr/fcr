@@ -1,56 +1,31 @@
-var loadScript = function(url){
-    var head = document.getElementsByTagName('head')[0];
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = url;
-    head.appendChild(script);
-};
+var page_data = { top: 0, slide_html: ''};
+var cars_data = {};
 
-/*
-var cars_data = {
-    'bentley': {'title': '벤틀리', 'models':[]},
-    'maserati': {'title': '마세라티', 'models':[]},
-    'porsche': {'title': '포르쉐', 'models':[]},
-    'benz': {'title': '메르세데스 벤츠', 'models':[]},
-    'bmw': {'title': 'BMW', 'models':[]},
-    'audi': {'title': '아우디', 'models':[]},
-    'volkswagen': {'title': '폭스바겐', 'models':[]},
-    'landrover': {'title': '랜드로버', 'models':[]},
-    'jaguar': {'title': '재규어', 'models':[]},
-    'toyota': {'title': '토요타', 'models':[]},
-    'citroen': {'title': '시트로엥', 'models':[]},
-    'fiat': {'title': '피아트', 'models':[]},
-    'hyundai': {'title': '현태', 'models':[]},
-    'kia': {'title': '기아', 'models':[]}
-};*/
-
-var page_data = {
-    top: 0,
-    slide_html: ''
-};
-
-
-(function(window){
+(function (window) {
+    cars_data = JSON.parse($("#cars_data").html());
     // Bind to StateChange Event
-    History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+    History.Adapter.bind(window, 'statechange', function () {
+        var State = History.getState();
 
-        var State = History.getState(); // Note: We are using History.getState() instead of event.state
+        console.log(JSON.stringify(State));
 
         if(typeof State.data.scrollTop !== 'undefined') {
             if($('.msc_modal').is(':visible')) {
-                close_modal();
-                $(document).scrollTop(State.data.scrollTop);
+               close_modal();
+               History.replaceState({scrollTop:State.data.scrollTop}, null, "");
+               $(document).scrollTop(State.data.scrollTop);
             }
         }
 
         if(typeof State.data.p !=='undefined' && State.data.p === 'brand' && typeof State.data.brand !== 'undefined') {
             open_cars_modal(State.data.brand);
         }
-        else close_modal();
 
-        if(typeof State.data.p !=='undefined' && State.data.p === 'agreement') {
-            open_agreement_modal();
-        }
+    });
+
+    $(window).on('popstate',function(event) {
+        var State = History.getState();
+        //console.log("location: " + JSON.stringify(State));
     });
 
 
@@ -61,6 +36,20 @@ var page_data = {
         var $li = $(brand_icons_template({'brand':brand}));
         $li.data(cars_data[brand]);
         $el_brand_container.append($li);
+    }
+
+    var entrance = JSON.parse($("#entrance").html());
+    if( entrance.brand != null ){
+        setTimeout(function(){
+            History.replaceState({scrollTop:0}, null, "?page=top");
+            History.pushState({p:'brand',brand:entrance.brand}, null, "?brand=" + entrance.brand);
+        },10);
+    }
+    else if (entrance.page!=null){
+        setTimeout(function(){
+            History.replaceState({scrollTop:0}, null, "?page=top");
+            open_page_modal(entrance.page.title, entrance.page.link);
+        },10);
     }
 
 })(window);
@@ -96,14 +85,10 @@ $(function(){
         var brand = $(this).data('brand');
         var scrollTop = $(document).scrollTop();
 
-        History.pushState({p:'brand', brand:brand, scrollTop:scrollTop}, null, "");
-    });
+        //History.pushState({scrollTop:scrollTop}, null, "");
+        History.replaceState({scrollTop:scrollTop}, null, "");
 
-    // 이용자약관 클릭 이벤트
-    $('.btn_agreement').on('click', function(){
-        var scrollTop = $(document).scrollTop();
-
-        History.pushState({p:'agreement', scrollTop:scrollTop}, null, "");
+        History.pushState({p:'brand',brand:brand}, null, "?brand=" + brand);
     });
 
     // Escape 모달 닫기
@@ -118,12 +103,18 @@ $(function(){
     $('.msc_modal_close').on('click', function(e){
         e.preventDefault();
         close_modal(e);
-    })
+        history.back();
+    });
+
+    if(window.location.include("brand=")){
+        alert("brand");
+    }
+
+
 });
 
 
 function logging(category, action_detail, brand, model, area, link) {
-    debugger;
     if (category == null) category = action_detail;
     if (action_detail == null) action_detail = category;
 
@@ -152,7 +143,6 @@ function open_cars_modal(brand){
 
     var cars_item_template = Handlebars.compile($("#cars_item_template").html());
     var html = cars_item_template(cars_data[brand]);
-
     $('.msc_container').hide();
     $('.cars_container').show().html(html);
     $('.cars_container .action_link').on('click', function(){
@@ -174,16 +164,34 @@ function open_cars_modal(brand){
     ga('send', 'pageview');
 }
 
-function open_agreement_modal(){
-    $('.msc_modal_tit').html('이용자약관');
+function open_page_modal(title, url){
+    $.ajax({
+        url : url,
+        success : function(html){
+            var scrollTop = $(document).scrollTop();
 
-    $('.msc_container').hide();
-    $('.agreement_container').show();
-    open_modal();
+            //History.pushState({scrollTop:scrollTop}, null, "");
+            History.replaceState({scrollTop:scrollTop}, null, "");
+
+            History.pushState({p:title, scrollTop:scrollTop}, null, "?page=" +title);
+
+            $('.msc_modal_tit').html(title);
+            $('.page_container').html(html);
+            $('.msc_container').hide();
+            $('.page_container').show();
+            open_modal();
+
+            $('head title').html("Mysupercar::" + title);
+            ga('set', 'page', '/' + title);
+            ga('send', 'pageview');
+        }
+    });
 }
+
 
 function open_modal(){
     page_data.top = $(document).scrollTop();
+
     $('.msc_modal').show();
     $('.content_wrap').hide();
 }
@@ -193,14 +201,12 @@ function close_modal(){
     $('.content_wrap').show();
     $(document).scrollTop(page_data.top);
 
-
-
     $('head title').html("Mysupercar");
     ga('set', 'page', '/');
     ga('send', 'pageview');
 
     reinit_slider();
-    History.replaceState(null, null, "");
+    //History.replaceState(null, null, "");
 }
 
 function reinit_slider(){
