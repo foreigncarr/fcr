@@ -18,19 +18,12 @@ hr {margin:0px}
 .area_tit .bar {margin-bottom:18px; display:block; height:3px; width:37px; background-color:#027cc5;}
 .area_tit .bar_white {background-color:#fff;}
 
-/*
 .intro_area {color:#fff;}
-.intro_area.bg1 {background:url('../img/ms_big_top_img.jpg') no-repeat center center; background-size:cover; background-color:#000;}
-.intro_area.bg2 {background:url('../img/ms_big_top_img2.jpg') no-repeat center center; background-size:cover; background-color:#000;}
+.intro_area.bg1 {background:url('http://d39imkxg0jo8t9.cloudfront.net/ms_big_top_img.jpg') no-repeat center center; background-size:cover; background-color:#000;}
+.intro_area.bg2 {background:url('http://d39imkxg0jo8t9.cloudfront.net/ms_big_top_img2.jpg') no-repeat center center; background-size:cover; background-color:#000;}
 @media all and (max-width:640px) {
-    .intro_area.bg1 {background:url('../img/intro_bg_1.jpg') no-repeat;}
-    .intro_area.bg2 {background:url('../img/intro_bg_2.jpg') no-repeat;}
-}
-*/
-
-.intro_area {color:#fff;  background:url('http://d39imkxg0jo8t9.cloudfront.net/ms_big_top_img.jpg') no-repeat center center; background-size:cover; background-color:#000;}
-@media all and (max-width:640px) {
-    .intro_area {background:url('http://d39imkxg0jo8t9.cloudfront.net/intro_bg_1.jpg') no-repeat;}
+    .intro_area.bg1 {background:url('http://d39imkxg0jo8t9.cloudfront.net/intro_bg_1.jpg') no-repeat;}
+    .intro_area.bg2 {background:url('http://d39imkxg0jo8t9.cloudfront.net/intro_bg_2.jpg') no-repeat;}
 }
 
 .intro_area .area_body {height:1126px;}

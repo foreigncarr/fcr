@@ -60,8 +60,8 @@ $(function(){
     });
 
     // intro 랜덤 배경
-    //var intro_bg_no = Math.floor(Math.random()*10%2+1);
-    //$('.intro_area').addClass('bg' + intro_bg_no);
+    var intro_bg_no = Math.floor(Math.random()*10%2+1);
+    $('.intro_area').addClass('bg' + intro_bg_no);
 
     // 스와이프
     page_data.slide_html = $('#slide_container').html();
