@@ -10,7 +10,7 @@
     line-height: 15px;
     display: block;
     color: gray;
-    font-weight: 200;
+    font-weight: 100;
   }
 </style>
 
@@ -180,7 +180,7 @@
     <div class="cars_item">
       <div class="car_name">{{name}}</div>
       <div class="car_image">
-        <img style="min-height:100px;padding-bottom: 50px"
+        <img style="min-height:100px;padding-bottom: 80px"
              src="http://d39imkxg0jo8t9.cloudfront.net/cars/{{image}}" />
       </div>
       <dl>
@@ -189,7 +189,10 @@
         <dt>가격</dt>
         <dd class="price car_fuel">
           <strike style='{{discountdisplay}}'>{{originalprice}}</strike>{{discountprice}}
-          <br/><span class='price_discription'>기본 거리 탁송 무료, 보험비 별도</span>
+          <br/>
+          <span class='price_discription'>기본 거리 탁송 무료, 보험비 별도 <br>
+            차량 색상, 세부 모양은 이미지와 다를 수 있음
+          </span>
         </dd>
       </dl>
       <a href="{{preorderlink}}"
