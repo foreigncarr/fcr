@@ -33,7 +33,7 @@ var cars_data = {};
     var $el_brand_container = $('.brand_icons');
     var brand_icons_template = Handlebars.compile($("#brand_icons_template").html());
     for(var brand in cars_data){
-        var $li = $(brand_icons_template({'brand':brand}));
+        var $li = $(brand_icons_template({'brand':brand,'logo':cars_data[brand]['logo']}));
         $li.data(cars_data[brand]);
         $el_brand_container.append($li);
     }
