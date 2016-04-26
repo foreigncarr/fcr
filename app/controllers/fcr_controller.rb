@@ -55,6 +55,8 @@ class FcrController < ApplicationController
                 fuel:          v['fuel'],
                 originalprice: original_price,
                 discountprice: discount_price,
+                notice:        v['notice'],
+                notice_display: (v['notice'].blank?)? 'none' : 'block',
                 discountdisplay: discount ? '':'display:none',
                 preorderlink:  v['preorderlink']
             })
