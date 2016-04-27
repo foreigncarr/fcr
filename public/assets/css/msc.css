@@ -91,7 +91,7 @@ hr {margin:0px}
 .cars_container .cars_item .car_image img {width:100%;}
 .cars_container .cars_item .car_reserv_btn {position:absolute; right:25px; bottom:25px; font-size:25px; font-weight:bold; background-color:#fff; padding:10px 15px; color:#000; border:2px solid #000; border-radius:10px;}
 .cars_container .cars_item dl {position:absolute; left:25px; bottom:0px; font-weight:bold; font-size:25px;}
-.cars_container .cars_item dl dt {float:left; clear:both; color:#ccc}
+.cars_container .cars_item dl dt {float:left; clear:both; color:#9d9d9d}
 .cars_container .cars_item dl dd {float:left; margin-left:30px;  *zoom:1; color:#333}
 .cars_container .cars_item dl dd:after {content:""; clear:both; display:block; height:0px;}
 
