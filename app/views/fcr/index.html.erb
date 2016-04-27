@@ -7,7 +7,7 @@
 
   div.cars_item dd .price_discription {
     font-size: 15px;
-    line-height: 15px;
+    line-height: 20px;
     display: block;
     color: gray;
     font-weight: 100;
@@ -181,14 +181,14 @@
     {{#models}}
     <div class="cars_item">
       <div class="car_name">{{name}}</div>
-      <div class="car_image">
+      <div class="car_image" style="padding-bottom:50px">
         <img style="min-height:100px;padding-bottom: 80px"
              src="http://d39imkxg0jo8t9.cloudfront.net/cars/{{image}}" />
       </div>
 
       <dl>
-        <dd style="margin-left: 0px;font-size: 15pt; font-weight: normal; font;padding-left:10px;padding-right:10px;background-color: blue;
-    color: white;margin-bottom: 5px; display:{{notice_display}}">{{notice}}</dd>
+        <dd style="margin-left: 0px;font-size: 15pt; font-weight: normal; font;padding-left:10px;padding-right:10px;background-color: #027cc5;
+    color: white;margin-bottom: 15px; display:{{notice_display}}">{{notice}}</dd>
         <dt>연비</dt>
         <dd class="car_mileage">{{mileage}}</dd>
         <dt>가격</dt>
