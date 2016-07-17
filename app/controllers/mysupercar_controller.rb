@@ -1,6 +1,6 @@
 require 'pry'
 
-class FcrController < ApplicationController
+class MysupercarController < ApplicationController
   include StatLogger
   before_filter :preprocess_cookie
   skip_before_filter :verify_authenticity_token

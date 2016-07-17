@@ -1,8 +1,14 @@
 var page_data = { top: 0, slide_html: ''};
 var cars_data = {};
+var vans_data  = [
+    {'name':'카니발 하이리무진', 'image':'cars_1.jpg', 'mileage': '7.6~11.1 km/L', 'price': '00000원'},
+    {'name':'카니발2', 'image':'cars_2.jpg', 'mileage': '7.6~11.1 km/L', 'price': '00000원'},
+    {'name':'카니발3', 'image':'cars_3.jpg', 'mileage': '7.6~11.1 km/L', 'price': '00000원'},
+    {'name':'카니발4', 'image':'cars_4.jpg', 'mileage': '7.6~11.1 km/L', 'price': '00000원'},
+    {'name':'카니발5', 'image':'cars_5.jpg', 'mileage': '7.6~11.1 km/L', 'price': '00000원'}
+];
 
 (function (window) {
-    cars_data = JSON.parse($("#cars_data").html());
     // Bind to StateChange Event
     History.Adapter.bind(window, 'statechange', function () {
         var State = History.getState();
@@ -28,28 +34,40 @@ var cars_data = {};
         //console.log("location: " + JSON.stringify(State));
     });
 
+    if (isMySuperCar()){
+        cars_data = JSON.parse($("#cars_data").html());
 
-    // 브랜드 아이콘 템플릿 렌더링
-    var $el_brand_container = $('.brand_icons');
-    var brand_icons_template = Handlebars.compile($("#brand_icons_template").html());
-    for(var brand in cars_data){
-        var $li = $(brand_icons_template({'brand':brand,'logo':cars_data[brand]['logo']}));
-        $li.data(cars_data[brand]);
-        $el_brand_container.append($li);
-    }
+        // 브랜드 아이콘 템플릿 렌더링
+        var $el_brand_container = $('.brand_icons');
+        var brand_icons_template = Handlebars.compile($("#brand_icons_template").html());
+        for(var brand in cars_data){
+            var $li = $(brand_icons_template({'brand':brand,'logo':cars_data[brand]['logo']}));
+            $li.data(cars_data[brand]);
+            $el_brand_container.append($li);
+        }
 
-    var entrance = JSON.parse($("#entrance").html());
-    if( entrance.brand != null ){
-        setTimeout(function(){
-            History.replaceState({scrollTop:0}, null, "?page=top");
-            History.pushState({p:'brand',brand:entrance.brand}, null, "?brand=" + entrance.brand);
-        },10);
+        var entrance = JSON.parse($("#entrance").html());
+        if( entrance.brand != null ){
+            setTimeout(function(){
+                History.replaceState({scrollTop:0}, null, "?page=top");
+                History.pushState({p:'brand',brand:entrance.brand}, null, "?brand=" + entrance.brand);
+            },10);
+        }
+        else if (entrance.page!=null){
+            setTimeout(function(){
+                History.replaceState({scrollTop:0}, null, "?page=top");
+                open_page_modal(entrance.page.title, entrance.page.link);
+            },10);
+        }
     }
-    else if (entrance.page!=null){
-        setTimeout(function(){
-            History.replaceState({scrollTop:0}, null, "?page=top");
-            open_page_modal(entrance.page.title, entrance.page.link);
-        },10);
+    else if (isMySuperVan()){
+        var $el_cars_list = $('.cars_list');
+        var cars_item_template = Handlebars.compile($("#cars_template").html());
+        for(var key in vans_data) {
+            var $li = $(cars_item_template(vans_data[key]));
+            $li.data(vans_data[key]);
+            $el_cars_list.append($li);
+        }
     }
 
 })(window);
@@ -60,8 +78,13 @@ $(function(){
     });
 
     // intro 랜덤 배경
-    var intro_bg_no = Math.floor(Math.random()*10%2+1);
-    $('.intro_area').addClass('bg' + intro_bg_no);
+    if (isMySuperCar()){
+        var intro_bg_size = 2;
+    } else if (isMySuperVan()) {
+        var intro_bg_size = 3;
+    }
+    var intro_bg_van_no = Math.floor(Math.random() * 10 % intro_bg_size + 1);
+    $('.intro_area').addClass("bg" + intro_bg_van_no);
 
     // 스와이프
     page_data.slide_html = $('#slide_container').html();
@@ -106,9 +129,9 @@ $(function(){
         history.back();
     });
 
-    if(window.location.include("brand=")){
+    /*if(window.location.href.includes("brand=")){
         alert("brand");
-    }
+    }*/
 
 
 });
@@ -230,4 +253,12 @@ function init_slider(){
             restartDelay: 2500
         }
     });
+}
+
+function isMySuperCar(){
+    return window.location.href.includes("mysupercar");
+}
+
+function isMySuperVan(){
+    return window.location.href.includes("mysupervan");
 }
