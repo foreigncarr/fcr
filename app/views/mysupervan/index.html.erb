@@ -9,16 +9,16 @@
           마이슈퍼밴으로 함께 하는<br />
           소중한 사람들과의 특별한 시간
         </h2>
-        <p class="copy_2">가족여행,골프투어,이벤트를위한<br />시작을도와드립니다
+        <p class="copy_2">가족여행, 골프투어, 이벤트를 위한<br />시작을 도와드립니다
         </p>
       </div>
       <div class="intro_tail">
         <p class="copy_3 inner">카니발, 스프린터, 익스플로러, 스타랙스를<br />
           원하는 시간과 장소로 탁송 서비스 제공</p>
         <ul class="intro_btns">
-          <li><a href="#" role="button">전화상담</a></li>
-          <li><a href="#" role="button">1:1카톡</a></li>
-          <li><a href="#" role="button">선예약 상담</a></li>
+          <li><a href="tel:02-6409-0799" role="button"  target="_blank" class='action_link' data-action-detail='전화상담' data-area='TOP' >전화상담</a></li>
+          <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button"  target="_blank" class='action_link' data-action-detail='카톡상담' data-area='TOP' >1:1카톡</a></li>
+          <li><a href="http://goo.gl/forms/sxytFdF0hC" role="button" target="_blank" class='action_link' data-action-detail='선예약상담' data-area='TOP' >선예약 상담</a></li>
         </ul>
         <div class="inner">
           <hr />
@@ -35,7 +35,15 @@
 
   <div class="area_container banner_area">
     <div class="area_body">
-      <div class="center"><a href="#" class="bn_event"><img src="http://d39imkxg0jo8t9.cloudfront.net/bn_open_coffee.png" /></a></div>
+      <div class="center">
+        <% banner = (@mysupervan_data['banner']||{}).values.select { |n| n['enable'].upcase == 'YES' }.clone.shuffle.first %>
+
+        <% if banner %>
+          <a href="<%= banner['link'] %>"  target="_blank" class="bn_event action_link" data-action-category='배너클릭' data-action-detail='<%= banner['alt'] %>' data-area='BANNER' data-alt='<%= banner['alt'] %>' >
+            <img src="<%= ImageHelper.url(banner['image'],:events ) %>" alt="<%= banner['alt'] %>"/>
+          </a>
+        <% end %>
+      </div>
 
       <span class="blank_line"></span>
 
@@ -46,11 +54,16 @@
         </h2>
       </div>
 
-      <div class="slides">
-        <a href="#" class="slide"><img src="http://d39imkxg0jo8t9.cloudfront.net/img_recommend_1.png" alt="가족여행(개인)" /></a>
-        <a href="#" class="slide"><img src="http://d39imkxg0jo8t9.cloudfront.net/img_recommend_1.png" alt="가족여행(개인)" /></a>
-        <a href="#" class="slide"><img src="http://d39imkxg0jo8t9.cloudfront.net/img_recommend_1.png" alt="가족여행(개인)" /></a>
+      <div id='slide_container'>
+        <div id='slider' class="slides">
+          <%(@mysupervan_data['event']||{}).values.select{|n| n['enable'].upcase == 'YES' }.each do |item|%>
+            <a href="<%= item['link']%>"  target="_blank" class='action_link' data-action-category='추천/이벤트클릭' data-action-detail='<%= banner['alt'] %>' data-area='SLIDER' >
+              <img src="<%=  ImageHelper.url(item['image'], :events) %>" alt="<%= item['alt']%>" />
+            </a>
+          <%end%>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -73,7 +86,11 @@
 
   <div class="area_container cars_area">
     <div class="area_body">
-      <div class="center"><a href="#" class="bn_mysupercar"><img src="http://d39imkxg0jo8t9.cloudfront.net/bn_mysupercar.png" /></a></div>
+      <div class="center">
+        <a href="http://www.mysupercar.co.kr" target="_blank" class="bn_mysupercar">
+          <img src="http://d39imkxg0jo8t9.cloudfront.net/bn_mysupercar.png" />
+        </a>
+      </div>
 
       <span class="blank_line"></span>
 
@@ -85,7 +102,7 @@
       </div>
       <div class="cars_list">
         <script id="cars_template" type="text/x-handlebars-template">
-          <div class="cars_item" style="background:url('assets/img/{{image}}');">
+          <div class="cars_item" style="background:url('/assets/img/{{image}}');">
             <div class="car_name">{{name}}</div>
             <div class="car_body">
               <div class="car_desc">00% 할인된 가격에<br />편안한 패밀리 여행을 즐겨보세요!</div>
@@ -100,8 +117,8 @@
                 <li class="left_bar">차량 색상, 세부 모양은 이미지와 다를 수 있음</li>
               </ul>
               <ul class="car_btns">
-                <li><a href="#" class="car_detail_btn">차량 자세히 보기</a></li>
-                <li><a href="#" class="car_reserv_btn">선예약상담</a></li>
+                <li><a href="{{detaillink}}" target="_blank" class="car_detail_btn">차량 자세히 보기</a></li>
+                <li><a href="{{preorderlink}}" target="_blank" class="car_reserv_btn">선예약상담</a></li>
               </ul>
             </div>
           </div>
@@ -115,9 +132,9 @@
   <div class="area_container link_area">
     <div class="area_body">
       <ul class="link_btns">
-        <li><a href="#" role="button">전화상담</a></li>
-        <li><a href="#" role="button">1:1카톡</a></li>
-        <li><a href="#" role="button">선예약 상담</a></li>
+        <li><a href="tel:02-6409-0799" role="button"  target="_blank" class='action_link' data-action-detail='전화상담' data-area='BOTTOM' >전화상담</a></li>
+        <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button"  target="_blank" class='action_link' data-action-detail='카톡상담' data-area='BOTTOM' >1:1카톡</a></li>
+        <li><a href="http://goo.gl/forms/sxytFdF0hC" role="button" target="_blank" class='action_link' data-action-detail='선예약상담' data-area='BOTTOM' >선예약 상담</a></li>
       </ul>
       <p class="copy_1">마이슈퍼밴 <strong>카톡 플러스친구,<br />
         페이스북 친구</strong>를 추가 하시면
@@ -126,9 +143,15 @@
         받으실 수 있습니다
       </p>
       <ul class="share_btns">
-        <li><a href="#" role="button" class="btn_share_kakao"><span class="blind">카카오톡</span></a></li>
-        <li><a href="#" role="button" class="btn_share_facebook"><span class="blind">페이스북</span></a></li>
-        <li><a href="#" role="button" class="btn_share_blog"><span class="blind">네이버블로그</span></a></li>
+        <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button"  target="_blank" class="btn_share_kakao action_link" target="_blank"
+               data-action-detail='카톡공유' data-area='SHARE'>
+          <span class="blind">카카오톡</span></a></li>
+        <li><a href="https://www.facebook.com/ilovemysupercar/" role="button"  target="_blank" class="btn_share_facebook action_link" target="_blank"
+               data-action-detail='페이스북공유' data-area='SHARE'>
+          <span class="blind">페이스북</span></a></li>
+        <li><a href="http://blog.naver.com/mysupercar" role="button" class="btn_share_blog action_link" target="_blank"
+               data-action-detail='네이버블로그공유' data-area='SHARE'>
+          <span class="blind">네이버블로그</span></a></li>
       </ul>
       <ul class="link_list">
         <li><a href="#" onclick="open_page_modal('이용가이드', 'pages/guide.html'); return false;">이용가이드</a></li>
@@ -142,7 +165,7 @@
 
   <div class="area_container footer_area">
     <div class="area_body">
-      <h2>상담전화 : 02-430-0799</h2>
+      <h2>상담전화 : <a href="tel:02-6409-0799">02-6409-0799</a></h2>
       <p>사업자등록번호 : 107-19-74445<br />
         대표 : 윤은선 / 이메일 : mysupercar@naver.com<br />
         케이알컨설팅
@@ -161,7 +184,10 @@
   </div>
 </div>
 
+<script id="cars_data" type="application/json">
+  <%= raw @car_data.to_json %>
+</script>
 
-<script type="text/javascript" src="assets/js/jquery/jquery.slides.min.js"></script>
-<!--<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>-->
-<script type="text/javascript" src="assets/js/handlebars/handlebars.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery/jquery.slides.min.js"></script>
+<!--<script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="/assets/js/handlebars/handlebars.min.js"></script>

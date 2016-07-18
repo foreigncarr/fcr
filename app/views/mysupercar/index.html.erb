@@ -50,7 +50,7 @@
   <div class="area_container banner_area">
     <div class="area_body">
       <div class="center">
-        <% banner = @fcr_data['banner'].values.select { |n| n['enable'].upcase == 'YES' }.clone.shuffle.first %>
+        <% banner = @mysupercar_data['banner'].values.select { |n| n['enable'].upcase == 'YES' }.clone.shuffle.first %>
 
         <% if banner %>
           <a href="<%= banner['link'] %>"  target="_blank" class="bn_event action_link" data-action-category='배너클릭' data-action-detail='<%= banner['alt'] %>' data-area='BANNER' data-alt='<%= banner['alt'] %>' >
@@ -70,7 +70,7 @@
 
       <div id='slide_container'>
         <div id='slider' class="slides">
-          <%@fcr_data['event'].values.select{|n| n['enable'].upcase == 'YES' }.each do |item|%>
+          <%@mysupercar_data['event'].values.select{|n| n['enable'].upcase == 'YES' }.each do |item|%>
             <a href="<%= item['link']%>"  target="_blank" class='action_link' data-action-category='추천/이벤트클릭' data-action-detail='<%= banner['alt'] %>' data-area='SLIDER' >
               <img src="<%=  ImageHelper.url(item['image'], :events) %>" alt="<%= item['alt']%>" />
             </a>
@@ -220,7 +220,7 @@
   <%= raw @entrance.to_json %>
 </script>
 
-<script type="text/javascript" src="assets/js/jquery/jquery.slides.min.js"></script>
-<!--<script type="text/javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>-->
-<script type="text/javascript" src="assets/js/handlebars/handlebars.min.js"></script>
+<script type="text/javascript" src="/assets/js/jquery/jquery.slides.min.js"></script>
+<!--<script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="/assets/js/handlebars/handlebars.min.js"></script>
 

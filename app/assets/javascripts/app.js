@@ -1,12 +1,5 @@
 var page_data = { top: 0, slide_html: ''};
 var cars_data = {};
-var vans_data  = [
-    {'name':'카니발 하이리무진', 'image':'cars_1.jpg', 'mileage': '7.6~11.1 km/L', 'price': '00000원'},
-    {'name':'카니발2', 'image':'cars_2.jpg', 'mileage': '7.6~11.1 km/L', 'price': '00000원'},
-    {'name':'카니발3', 'image':'cars_3.jpg', 'mileage': '7.6~11.1 km/L', 'price': '00000원'},
-    {'name':'카니발4', 'image':'cars_4.jpg', 'mileage': '7.6~11.1 km/L', 'price': '00000원'},
-    {'name':'카니발5', 'image':'cars_5.jpg', 'mileage': '7.6~11.1 km/L', 'price': '00000원'}
-];
 
 (function (window) {
     // Bind to StateChange Event
@@ -61,11 +54,13 @@ var vans_data  = [
         }
     }
     else if (isMySuperVan()){
+        cars_data = JSON.parse($("#cars_data").html());
+
         var $el_cars_list = $('.cars_list');
         var cars_item_template = Handlebars.compile($("#cars_template").html());
-        for(var key in vans_data) {
-            var $li = $(cars_item_template(vans_data[key]));
-            $li.data(vans_data[key]);
+        for(var key in cars_data) {
+            var $li = $(cars_item_template(cars_data[key]));
+            $li.data(cars_data[key]);
             $el_cars_list.append($li);
         }
     }

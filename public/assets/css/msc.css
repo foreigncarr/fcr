@@ -36,7 +36,7 @@ hr {margin:0px}
 .intro_area .intro_tail .copy_3 {font-size:23px; font-weight:bold; letter-spacing:-2px;}
 .intro_area .intro_tail .intro_btns {margin-top:20px; display:table; width:100%;}
 .intro_area .intro_tail .intro_btns li {display:table-cell; width:33.3%; text-align:center;}
-.intro_area .intro_tail .intro_btns li a {display:inline-block; width:148px; padding:9px 0; border-radius:8px; color:#fff; font-size:20px; font-weight:bold; text-align:center; vertical-align:middle; white-space:nowrap; background:url('../img/intro_btn_bg.png');}
+.intro_area .intro_tail .intro_btns li a {display:inline-block; width:148px; padding:9px 0; border-radius:8px; color:#fff; font-size:20px; font-weight:bold; text-align:center; vertical-align:middle; white-space:nowrap; background:url('http://d39imkxg0jo8t9.cloudfront.net/intro_btn_bg.png');}
 .intro_area .intro_tail  hr {margin-top:20px; border:0px; background-color:#fff; height:1px; opacity:0.5}
 .intro_area .intro_tail  h2 {display:block; margin-top:30px; width:580px; font-size:30px; font-weight:bold;}
 .intro_area .intro_tail .answers {margin-top:26px; font-size:19px; line-height:24px}
