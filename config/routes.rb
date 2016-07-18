@@ -1,10 +1,10 @@
 require './lib/domain_constraint.rb'
 
 Rails.application.routes.draw do
-  root 'common#index'
 
   constraints DomainConstraint::MySuperCar.new do
-    match 'index' => 'mysupercar#index', via: [:get, :post]
+    root to:'mysupercar#index', as: nil
+    match '/' => 'mysupercar#index', via: [:get, :post]
     match 'log/submit' => 'mysupercar#submit_log', via: [:post]
     match 'admin' => 'admin#admin', via: [:get, :post]
 
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   constraints DomainConstraint::MySuperVan.new do
-    match 'index' => 'mysupervan#index', via: [:get, :post]
+    root to: 'mysupervan#index', as: nil
+    match '/' => 'mysupervan#index', via: [:get, :post]
   end
 end

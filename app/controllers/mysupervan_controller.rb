@@ -21,5 +21,19 @@ class MysupervanController < ApplicationController
         ]
     }
     @car_data = @mysupervan_data['car'].clone
+
+    @pages = [
+        { title: '이용가이드', link: 'pages/guide.html' },
+        { title: '대여자격', link: 'pages/qualification.html' },
+        { title: '대여 및 반납절차', link: 'pages/process.html' },
+        { title: '보험 및 보상안내', link: 'pages/insurance.html' },
+        { title: '개인정보취급방침', link: 'pages/privacy.html' }
+    ]
+    page = @pages.select{|t| t[:title] == params[:page]}.first
+
+    @entrance = {
+        page: page
+    }.compact
+
   end
 end

@@ -33,7 +33,7 @@ class MysupercarController < ApplicationController
     @entrance = {
         brand: params[:brand].presence,
         page: page
-    }.compact!
+    }.compact
 
     @mysupercar_data = CarData.load
     @car_data = @mysupercar_data['brand'].clone

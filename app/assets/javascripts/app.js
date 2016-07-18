@@ -63,6 +63,14 @@ var cars_data = {};
             $li.data(cars_data[key]);
             $el_cars_list.append($li);
         }
+
+        var entrance = JSON.parse($("#entrance").html());
+        if (entrance.page!=null){
+            setTimeout(function(){
+                History.replaceState({scrollTop:0}, null, "?page=top");
+                open_page_modal(entrance.page.title, entrance.page.link);
+            },10);
+        }
     }
 
 })(window);
