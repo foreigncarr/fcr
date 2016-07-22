@@ -3,6 +3,7 @@ require 'pry'
 class MysupervanController < ApplicationController
 
   def index
+=begin
     @mysupervan_data = {
         'banner' => {
             'banner_0'=>{'image'=>'bn_open_coffee.png', 'link'=>'http://blog.naver.com/mysupercar', 'alt'=>'선예약 상담 이벤트', 'enable'=>'YES'}
@@ -21,6 +22,10 @@ class MysupervanController < ApplicationController
         ]
     }
     @car_data = @mysupervan_data['car'].clone
+
+=end
+    @mysupervan_data = MsvCarData.load
+    @car_data = @mysupervan_data['model'].clone
 
     @pages = [
         { title: '이용가이드', link: 'pages/guide.html' },

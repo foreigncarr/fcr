@@ -18,5 +18,13 @@ Rails.application.routes.draw do
   constraints DomainConstraint::MySuperVan.new do
     root to: 'mysupervan#index', as: nil
     match '/' => 'mysupervan#index', via: [:get, :post]
+    match 'log/submit' => 'mysupervan#submit_log', via: [:post]
+    match 'admin' => 'mysupervan_admin#admin', via: [:get, :post]
+
+    match 'admin/load_brand_data' => 'mysupervan_admin#load_brand_data', via: [:get, :post]
+    match 'admin/load_model_data' => 'mysupervan_admin#load_model_data', via: [:get, :post]
+    match 'admin/load_banner_data' => 'mysupervan_admin#load_banner_data', via: [:get, :post]
+    match 'admin/load_event_data' => 'mysupervan_admin#load_event_data', via: [:get, :post]
+    match 'admin/update_data_model' => 'mysupervan_admin#update_data_model', via: [:get, :post]
   end
 end

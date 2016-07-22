@@ -94,58 +94,57 @@
 
 <div class="msc_modal" style="display:block;">
   <div class="msc_modal_tit">사이트 관리</div>
-<!--  <div class="msc_container" style="display:block"></div>-->
 
   <% if not @authorized %>
-  <div id='login_box' style="display: block;margin-top:20px;background: #efefef">
-    <div style="display: inline-block; margin:100px 150px 100px 250px">
-      <form name='password' method="post" aciton="./admin/login">
-        password : <input name='password' id='password_box' type="password" style="width:150px"/>
-        <input style="width:80px" type="submit" value='login' id="login_button" />
-      </form>
+    <div id='login_box' style="display: block;margin-top:20px;background: #efefef">
+      <div style="display: inline-block; margin:100px 150px 100px 250px">
+        <form name='password' method="post" aciton="./admin/login">
+          password : <input name='password' id='password_box' type="password" style="width:150px"/>
+          <input style="width:80px" type="submit" value='login' id="login_button" />
+        </form>
+      </div>
     </div>
-  </div>
   <% else %>
-  <div id='admin_box' style="display: block;margin-top:20px;background: #efefef">
-    <div style="width: 100%; display: inline-block; padding: 50px 20px 50px 20px">
-      <button type="button" id='import_button' onclick="javascript:start_fetch_data()">데이터 가져오기</button>
-      <progress id='progress' max="4" value="0" style="width:600px"></progress>
-      <br/> <br/>
+    <div id='admin_box' style="display: block;margin-top:20px;background: #efefef">
+      <div style="width: 100%; display: inline-block; padding: 50px 20px 50px 20px">
+        <button type="button" id='import_button' onclick="javascript:start_fetch_data()">데이터 가져오기</button>
+        <progress id='progress' max="4" value="0" style="width:600px"></progress>
+        <br/> <br/>
 
-      <div id='progress_description' style="font-size: 12px; color:#afafaf;margin-left:50px">
+        <div id='progress_description' style="font-size: 12px; color:#afafaf;margin-left:50px">
+        </div>
+
+        <div id="tab-container" style="display: none">
+          <ul class="tab-menu">
+            <li id="brand">브랜드</li>
+            <li id="model" class="active">모델</li>
+            <li id="banner">배너</li>
+            <li id="event">추천/이벤트</li>
+          </ul>
+          <div class="clear"></div>
+          <div class="tab-top-border"></div>
+          <div id="brand-tab" class="tab-content">
+            <table id='brand_table' class="gridtable">
+            </table>
+          </div>
+          <div id="model-tab" class="tab-content active">
+            <table id='model_table' class="gridtable">
+            </table>
+          </div>
+          <div id="banner-tab" class="tab-content">
+            <table id='banner_table' class="gridtable">
+            </table>
+          </div>
+          <div id="event-tab" class="tab-content">
+            <table id='event_table' class="gridtable">
+            </table>
+          </div>
+        </div>
+
+        <br/>
+        <button onclick="javascript:update_data()" id='update_button' type="button" disabled style="display:none; height: 40px; width: 150px;float:right; color:#5774af; margin-right: 50px">적용하기</button>
       </div>
-
-      <div id="tab-container" style="display: none">
-        <ul class="tab-menu">
-          <li id="brand">브랜드</li>
-          <li id="model" class="active">모델</li>
-          <li id="banner">배너</li>
-          <li id="event">추천/이벤트</li>
-        </ul>
-        <div class="clear"></div>
-        <div class="tab-top-border"></div>
-        <div id="brand-tab" class="tab-content">
-          <table id='brand_table' class="gridtable">
-          </table>
-        </div>
-        <div id="model-tab" class="tab-content active">
-          <table id='model_table' class="gridtable">
-          </table>
-        </div>
-        <div id="banner-tab" class="tab-content">
-          <table id='banner_table' class="gridtable">
-          </table>
-        </div>
-        <div id="event-tab" class="tab-content">
-          <table id='event_table' class="gridtable">
-          </table>
-        </div>
-      </div>
-
-      <br/>
-      <button onclick="javascript:update_data()" id='update_button' type="button" disabled style="display:none; height: 40px; width: 150px;float:right; color:#5774af; margin-right: 50px">적용하기</button>
     </div>
-  </div>
 
   <% end %>
 
@@ -164,10 +163,10 @@
       url: "/admin/load_brand_data",
       context: document.body
     }).done(function (data) {
-              cars_data.brand = data;
-              $('#progress').attr('value',1);
-              fetch_model_data();
-            });
+      cars_data.brand = data;
+      $('#progress').attr('value',1);
+      fetch_model_data();
+    });
   }
 
   var fetch_model_data = function(){
@@ -176,10 +175,10 @@
       url: "/admin/load_model_data",
       context: document.body
     }).done(function (data) {
-              cars_data.model = data;
-              $('#progress').attr('value',2);
-               fetch_banner_data();
-            });
+      cars_data.model = data;
+      $('#progress').attr('value',2);
+      fetch_banner_data();
+    });
   }
 
   var fetch_banner_data = function(){
@@ -188,10 +187,10 @@
       url: "/admin/load_banner_data",
       context: document.body
     }).done(function (data) {
-              cars_data.banner = data;
-              $('#progress').attr('value',3);
-              fetch_event_data();
-            });
+      cars_data.banner = data;
+      $('#progress').attr('value',3);
+      fetch_event_data();
+    });
   }
 
   var fetch_event_data = function(){
@@ -200,17 +199,17 @@
       url: "/admin/load_event_data",
       context: document.body
     }).done(function (data) {
-              cars_data.event = data;
-              $('#progress').attr('value',4);
-              render_cars_data();
-            });
+      cars_data.event = data;
+      $('#progress').attr('value',4);
+      render_cars_data();
+    });
   }
 
   var render_cars_data = function() {
     var msg = Object.keys(cars_data.brand).length + "개의 브랜드, "
-            + Object.keys(cars_data.model).length + "개의 모델,"
-            + Object.keys(cars_data.banner).length + "개의 배너,"
-            + Object.keys(cars_data.event).length + "개의 이벤트 정보가 로드되었습니다."
+        + Object.keys(cars_data.model).length + "개의 모델,"
+        + Object.keys(cars_data.banner).length + "개의 배너,"
+        + Object.keys(cars_data.event).length + "개의 이벤트 정보가 로드되었습니다."
     $("#progress_description").html(msg);
 
     render_brand_table();
@@ -243,14 +242,14 @@
 
   var render_brand_table = function(){
     return render_table('brand_table', cars_data.brand,
-            "brandCode title logo".split(" ")
+        "brandCode title logo".split(" ")
     );
   }
 
   var render_model_table = function(){
 
     return render_table('model_table', cars_data.model,
-            "image modelCode brandCode name notice mileage fuel originalprice discountprice preorderlink".split(" ")
+        "image modelCode brandCode name notice mileage fuel originalprice discountprice preorderlink".split(" ")
     );
 
     var trth = "<tr>";
@@ -282,13 +281,13 @@
 
   var render_banner_table = function(){
     return render_table('banner_table', cars_data.banner,
-            "image link alt enable".split(" ")
+        "image link alt enable".split(" ")
     );
   }
 
   var render_event_table = function(){
     return render_table('event_table', cars_data.event,
-            "image link alt enable".split(" ")
+        "image link alt enable".split(" ")
     );
   }
 
@@ -300,8 +299,8 @@
       dataType: "json",
       data: {"car_data": cars_data }
     }).done(function () {
-              alert("데이터를 사이트에 적용하였습니다!!!");
-            });
+      alert("데이터를 사이트에 적용하였습니다!!!");
+    });
   }
 
   $(document).ready(function(){

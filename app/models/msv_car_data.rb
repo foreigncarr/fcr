@@ -1,33 +1,24 @@
-class CarData
+class MsvCarData
   def self.load
-    data = redis.get('fcr_data') || self.save({
-                                           brand:  fetch_brand_data,
-                                           model:  fetch_model_data,
-                                           banner: fetch_banner_data,
-                                           event:  fetch_event_data
-                                       })
+    data = redis.get('msv_data') || self.save({
+                                                  model:  fetch_model_data,
+                                                  banner: fetch_banner_data,
+                                                  event:  fetch_event_data
+                                              })
     Oj.load data
   end
 
   def self.clear_cache
-    redis.del('fcr_data')
+    redis.del('msv_data')
   end
 
   def self.save data
-    redis.set('fcr_data', data.to_json)
-    redis.get('fcr_data')
-  end
-
-  def self.fetch_brand_data
-    url = 'https://spreadsheets.google.com/feeds/list/1jUtKI4UhHgBv2NrX0TQFFGBuqw7LpY2Li2VCo6EE5tA/od6/public/values?alt=json'
-    raw = Oj.load RestClient.get url
-    Hash[extract_entry_from(raw, %w(brandcode title logo)).map do |h|
-      [h['brandcode'], {brandcode: h['brandcode'], title: h['title'], models: [], logo: h['logo']}]
-    end]
+    redis.set('msv_data', data.to_json)
+    redis.get('msv_data')
   end
 
   def self.fetch_model_data
-    url = 'https://spreadsheets.google.com/feeds/list/1tb0Fy74CxayHuSBUCd9OO5_hpvvXKuTCe8nOgNDi87M/od6/public/values?alt=json'
+    url = 'https://spreadsheets.google.com/feeds/list/15WxnRfK1S2bzPC2yGpMNwavkkIty6dM9ZSZob1Xd5OA/od6/public/values?alt=json'
     raw = Oj.load RestClient.get url
     Hash[extract_entry_from(raw, %w(brandcode modelcode modelname image notice mileage fuel originalprice discountprice preorderlink)).map do |h|
       [h['modelcode'], {modelcode: h['modelcode'], brandcode: h['brandcode'], name: h['modelname'], image: h['image'], mileage: h['mileage'], fuel: h['fuel'], notice: h['notice'], originalprice: h['originalprice'], discountprice: h['discountprice'], preorderlink: h['preorderlink']}]
@@ -35,7 +26,7 @@ class CarData
   end
 
   def self.fetch_banner_data
-    url = 'https://spreadsheets.google.com/feeds/list/173OIlpVI-p0lT2YTkexIwfo8E-OMBtj9n3R_Wjxs8nU/od6/public/values?alt=json'
+    url = 'https://spreadsheets.google.com/feeds/list/1NFzIlja48ooGku6MxBsDdqKBnC_xynPQnN2K1a8kH30/od6/public/values?alt=json'
     raw = Oj.load RestClient.get url
     Hash[extract_entry_from(raw, %w(image link alt enable)).map.with_index do |h, i|
       ["banner_#{i}", {image: h['image'], link: h['link'], alt: h['alt'], enable: h['enable']}]
@@ -43,7 +34,7 @@ class CarData
   end
 
   def self.fetch_event_data
-    url = 'https://spreadsheets.google.com/feeds/list/1yj8yQ9JR4nFVOWEf-8BBTJ5uSaJ1xEZmDoi9r-CVl_E/od6/public/values?alt=json'
+    url = 'https://spreadsheets.google.com/feeds/list/1kLnuYfxs3Hu7-ab0ipXzDWYEjXaOY6rMZ8CNyFcXuFg/od6/public/values?alt=json'
     raw = Oj.load RestClient.get url
     Hash[extract_entry_from(raw, %w(image link alt enable)).map.with_index do |h, i|
       ["event_#{i}", {image: h['image'], link: h['link'], alt: h['alt'], enable: h['enable']}]
