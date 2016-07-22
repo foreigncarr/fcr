@@ -249,7 +249,7 @@
   var render_model_table = function(){
 
     return render_table('model_table', cars_data.model,
-        "image modelCode brandCode name notice mileage fuel originalprice discountprice preorderlink".split(" ")
+        "image modelCode brandCode name notice mileage fuel price originalprice discountprice preorderlink".split(" ")
     );
 
     var trth = "<tr>";
@@ -270,6 +270,7 @@
       row += "<td>"+ kv['mileage'] + "</td>"
       row += "<td>"+ kv['notice'] + "</td>"
       row += "<td>"+ kv['fuel'] + "</td>"
+      row += "<td>"+ kv['price'] + "</td>"
       row += "<td>"+ kv['originalprice'] + "</td>"
       row += "<td>"+ kv['discountprice'] + "</td>"
       row += "<td>"+ kv['preorderlink'] + "</td>"

@@ -105,7 +105,10 @@
           <div class="cars_item" style="background:url('/assets/img/{{image}}');">
             <div class="car_name">{{name}}</div>
             <div class="car_body">
-              <div class="car_desc">{{notice}}</div>
+              <div class="car_desc">
+                <span style="display:block">{{notice1}}</span>
+                <span style="display:{{notice2_style}}">{{notice2}}</span></div>
+              <!--<div class="car_desc">{{notice}}</div> -->
               <dl>
                 <dt>연비</dt>
                 <dd class="car_mileage">{{mileage}}</dd>
