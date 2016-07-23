@@ -20,7 +20,7 @@ class MsvCarData
   def self.fetch_model_data
     url = 'https://spreadsheets.google.com/feeds/list/15WxnRfK1S2bzPC2yGpMNwavkkIty6dM9ZSZob1Xd5OA/od6/public/values?alt=json'
     raw = Oj.load RestClient.get url
-    Hash[extract_entry_from(raw, %w(brandcode modelcode modelname image notice mileage fuel price originalprice discountprice preorderlink)).map do |h|
+    Hash[extract_entry_from(raw, %w(brandcode modelcode modelname image notice mileage fuel price originalprice discountprice preorderlink detaillink)).map do |h|
       multiline_notice =  h['notice'].split("\n")
 
       notice1 = multiline_notice[0]
@@ -31,7 +31,7 @@ class MsvCarData
 
       price = h['price'].presence || h['discountprice'].presence || h['originalprice']
 
-      [h['modelcode'], {modelcode: h['modelcode'], brandcode: h['brandcode'], name: h['modelname'], image: h['image'], mileage: h['mileage'], fuel: h['fuel'], notice: h['notice'], notice1: notice1, notice2: notice2, notice2_style: notice2_style, price: price, originalprice: h['originalprice'], discountprice: h['discountprice'], preorderlink: h['preorderlink']}]
+      [h['modelcode'], {modelcode: h['modelcode'], brandcode: h['brandcode'], name: h['modelname'], image: h['image'], mileage: h['mileage'], fuel: h['fuel'], notice: h['notice'], notice1: notice1, notice2: notice2, notice2_style: notice2_style, price: price, originalprice: h['originalprice'], discountprice: h['discountprice'], preorderlink: h['preorderlink'], detaillink: h['detaillink']}]
     end]
   end
 
