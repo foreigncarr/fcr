@@ -1,6 +1,6 @@
 require 'pry'
 
-class FcrController < ApplicationController
+class MysupercarController < ApplicationController
   include StatLogger
   before_filter :preprocess_cookie
   skip_before_filter :verify_authenticity_token
@@ -33,11 +33,11 @@ class FcrController < ApplicationController
     @entrance = {
         brand: params[:brand].presence,
         page: page
-    }.compact!
+    }.compact
 
-    @fcr_data = CarData.load
-    @car_data = @fcr_data['brand'].clone;
-    (@fcr_data['model'] ||[]).each do |k, v|
+    @mysupercar_data = CarData.load
+    @car_data = @mysupercar_data['brand'].clone
+    (@mysupercar_data['model'] ||[]).each do |k, v|
       begin
 
         original_price = (v['originalprice'] || '').strip

@@ -1,0 +1,200 @@
+<div class="content_wrap">
+
+  <div class="area_container intro_area">
+    <div class="area_body">
+      <h1><span class="blind">Mysupervan</span></h1>
+      <div class="intro_head inner">
+        <h2 class="area_tit">
+          <span class="bar"></span>
+          마이슈퍼밴으로 함께 하는<br />
+          소중한 사람들과의 특별한 시간
+        </h2>
+        <p class="copy_2">가족여행, 골프투어, 이벤트를 위한<br />시작을 도와드립니다
+        </p>
+      </div>
+      <div class="intro_tail">
+        <p class="copy_3 inner">카니발, 스프린터, 익스플로러, 스타랙스를<br />
+          원하는 시간과 장소로 탁송 서비스 제공</p>
+        <ul class="intro_btns">
+          <li><a href="tel:02-6409-0799" role="button"  target="_blank" class='action_link' data-action-detail='전화상담' data-area='TOP' >전화상담</a></li>
+          <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button"  target="_blank" class='action_link' data-action-detail='카톡상담' data-area='TOP' >1:1카톡</a></li>
+          <li><a href="http://goo.gl/forms/sxytFdF0hC" role="button" target="_blank" class='action_link' data-action-detail='선예약상담' data-area='TOP' >선예약 상담</a></li>
+        </ul>
+        <div class="inner">
+          <hr />
+          <h2>왜? mysupervan을 선택해야 하나요?</h2>
+          <ul class="answers">
+            <li>1. 3년이내 새차량으로 철저한 관리가 되어 있습니다</li>
+            <li>2. 탁송 서비스 제공으로 편하게 집이나 오피스에서 차량을 사용 할 수 있습니다</li>
+            <li>3. 새벽 출발을 위한 야간 배차가 가능합니다</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="area_container banner_area">
+    <div class="area_body">
+      <div class="center">
+        <% banner = (@mysupervan_data['banner']||{}).values.select { |n| n['enable'].upcase == 'YES' }.clone.shuffle.first %>
+
+        <% if banner %>
+          <a href="<%= banner['link'] %>"  target="_blank" class="bn_event action_link" data-action-category='배너클릭' data-action-detail='<%= banner['alt'] %>' data-area='BANNER' data-alt='<%= banner['alt'] %>' >
+            <img src="<%= ImageHelper.url(banner['image'],:events ) %>" alt="<%= banner['alt'] %>"/>
+          </a>
+        <% end %>
+      </div>
+
+      <span class="blank_line"></span>
+
+      <div class="inner">
+        <h2 class="area_tit black">
+          <span class="bar"></span>
+          마이슈퍼밴 추천 서비스
+        </h2>
+      </div>
+
+      <div id='slide_container'>
+        <div id='slider' class="slides">
+          <%(@mysupervan_data['event']||{}).values.select{|n| n['enable'].upcase == 'YES' }.each do |item|%>
+            <a href="<%= item['link']%>"  target="_blank" class='action_link' data-action-category='추천/이벤트클릭' data-action-detail='<%= banner['alt'] %>' data-area='SLIDER' >
+              <img src="<%=  ImageHelper.url(item['image'], :events) %>" alt="<%= item['alt']%>" />
+            </a>
+          <%end%>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="area_container step_area">
+    <div class="area_body">
+      <div class="inner">
+        <h2 class="area_tit white">
+          <span class="bar"></span>
+          마이슈퍼밴 렌트 방법
+        </h2>
+      </div>
+
+      <span class="blank_line"></span>
+
+      <div class="center">
+        <img src="http://d39imkxg0jo8t9.cloudfront.net/step_contents_van.png" />
+      </div>
+    </div>
+  </div>
+
+  <div class="area_container cars_area">
+    <div class="area_body">
+      <div class="center">
+        <a href="http://www.mysupercar.co.kr" target="_blank" class="bn_mysupercar">
+          <img src="http://d39imkxg0jo8t9.cloudfront.net/bn_mysupercar.png" />
+        </a>
+      </div>
+
+      <span class="blank_line"></span>
+
+      <div class="inner">
+        <h2 class="area_tit black">
+          <span class="bar"></span>
+          마이슈퍼밴 차량 소개
+        </h2>
+      </div>
+      <div class="cars_list">
+        <script id="cars_template" type="text/x-handlebars-template">
+          <div class="cars_item" style="background:url('/assets/img/{{image}}');">
+            <div class="car_name">{{name}}</div>
+            <div class="car_body">
+              <div class="car_desc">
+                <span style="display:block">{{notice1}}</span>
+                <span style="display:{{notice2_style}}">{{notice2}}</span></div>
+              <!--<div class="car_desc">{{notice}}</div> -->
+              <dl>
+                <dt>연비</dt>
+                <dd class="car_mileage">{{mileage}}</dd>
+                <dt class="left_bar">가격</dt>
+                <dd class="car_fuel">{{price}}</dd>
+              </dl>
+              <ul class="car_desc_list">
+                <li>기본거리 탁송 무료, 보험비 별도</li>
+                <li class="left_bar">차량 색상, 세부 모양은 이미지와 다를 수 있음</li>
+              </ul>
+              <ul class="car_btns">
+                <li><a href="{{detaillink}}" target="_blank" class="car_detail_btn">차량 자세히 보기</a></li>
+                <li><a href="{{preorderlink}}" target="_blank" class="car_reserv_btn">선예약상담</a></li>
+              </ul>
+            </div>
+          </div>
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner"><hr /></div>
+
+  <div class="area_container link_area">
+    <div class="area_body">
+      <ul class="link_btns">
+        <li><a href="tel:02-6409-0799" role="button"  target="_blank" class='action_link' data-action-detail='전화상담' data-area='BOTTOM' >전화상담</a></li>
+        <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button"  target="_blank" class='action_link' data-action-detail='카톡상담' data-area='BOTTOM' >1:1카톡</a></li>
+        <li><a href="http://goo.gl/forms/sxytFdF0hC" role="button" target="_blank" class='action_link' data-action-detail='선예약상담' data-area='BOTTOM' >선예약 상담</a></li>
+      </ul>
+      <p class="copy_1">마이슈퍼밴 <strong>카톡 플러스친구,<br />
+        페이스북 친구</strong>를 추가 하시면
+      </p>
+      <p class="copy_2">다양한 이벤트 / 특가 정보를<br />
+        받으실 수 있습니다
+      </p>
+      <ul class="share_btns">
+        <li><a href="https://plus.kakao.com/home/@마이슈퍼카" role="button"  target="_blank" class="btn_share_kakao action_link" target="_blank"
+               data-action-detail='카톡공유' data-area='SHARE'>
+          <span class="blind">카카오톡</span></a></li>
+        <li><a href="https://www.facebook.com/ilovemysupercar/" role="button"  target="_blank" class="btn_share_facebook action_link" target="_blank"
+               data-action-detail='페이스북공유' data-area='SHARE'>
+          <span class="blind">페이스북</span></a></li>
+        <li><a href="http://blog.naver.com/mysupercar" role="button" class="btn_share_blog action_link" target="_blank"
+               data-action-detail='네이버블로그공유' data-area='SHARE'>
+          <span class="blind">네이버블로그</span></a></li>
+      </ul>
+      <ul class="link_list">
+        <li><a href="#" onclick="open_page_modal('이용가이드', 'pages/guide.html'); return false;">이용가이드</a></li>
+        <li class="left_bar"><a href="#" onclick="open_page_modal('대여자격', 'pages/qualification.html'); return false;">대여자격</a></li>
+        <li class="left_bar"><a href="#" onclick="open_page_modal('대여 및 반납절차', 'pages/process.html'); return false;">대여 및 반납절차</a></li><br />
+        <li><a href="#" onclick="open_page_modal('보험 및 보상안내', 'pages/insurance.html'); return false;">보험 및 보상안내</a></li>
+        <li class="left_bar"><a href="#" onclick="open_page_modal('개인정보취급방침', 'pages/privacy.html'); return false;">개인정보취급방침</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="area_container footer_area">
+    <div class="area_body">
+      <h2>상담전화 : <a href="tel:02-6409-0799">02-6409-0799</a></h2>
+      <p>사업자등록번호 : 107-19-74445<br />
+        대표 : 윤은선 / 이메일 : mysupercar@naver.com<br />
+        케이알컨설팅
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<div class="msc_modal">
+  <div class="msc_modal_tit"></div>
+  <a href="#" class="msc_modal_close"></a>
+
+  <div class="msc_container page_container">
+
+  </div>
+</div>
+
+<script id="cars_data" type="application/json">
+  <%= raw @car_data.to_json %>
+</script>
+
+<script id="entrance" type="application/json">
+  <%= raw @entrance.to_json if @entrance != nil %>
+</script>
+
+<script type="text/javascript" src="/assets/js/jquery/jquery.slides.min.js"></script>
+<!--<script type="text/javascript" src="/assets/bootstrap/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="/assets/js/handlebars/handlebars.min.js"></script>
