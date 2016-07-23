@@ -64,7 +64,7 @@ class MysupercarController < ApplicationController
       end
     end
 
-    stat('초기화면') if @logging
+    stat('초기화면_마이슈퍼카') if @logging
   end
 
   def rental_guide
