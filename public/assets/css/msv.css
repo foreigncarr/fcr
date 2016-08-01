@@ -56,7 +56,7 @@ hr {margin:0px}
 
 .cars_area {position:relative; padding-top:40px; padding-bottom:40px; background-color:#ebebeb}
 .cars_area  hr {margin-top:20px; border:0px; background-color:#ddd; height:1px; opacity:0.5}
-.cars_area .cars_item {position:relative; margin:0 auto 20px auto; border:1px solid #ddd; background-color:#fff; background-repeat:no-repeat; width:568px; height:582px;}
+.cars_area .cars_item {position:relative; margin:0 auto 20px auto; border:1px solid #ddd; background-color:#fff; background-repeat:no-repeat; width:568px; height:642px;}
 .cars_area .cars_item .car_name {position:absolute; left:20px; top:20px; font-size:35px}
 .cars_area .cars_item .car_body {position:absolute; left:0px; bottom:0px; width:100%;}
 .cars_area .cars_item .car_body .car_desc {margin-bottom:20px; text-align:center; color:#de4a56; font-size:27px; font-weight:bold; line-height:28px}
@@ -66,7 +66,7 @@ hr {margin:0px}
 .cars_area .cars_item .car_body dl dt:first-child {padding-left:0px}
 .cars_area .cars_item .car_body dl dd {display:inline-block;}
 .cars_area .cars_item .car_body dl dt.left_bar {padding-left:30px; background:url('http://d39imkxg0jo8t9.cloudfront.net/copyright_bar.jpg') no-repeat 10px 3px;}
-.cars_area .cars_item .car_body ul.car_desc_list {text-align:center; color:#c6c6c6; font-size:14px; letter-spacing:-1px}
+.cars_area .cars_item .car_body ul.car_desc_list {text-align:center; color:#969696; font-size:14px; letter-spacing:-1px}
 .cars_area .cars_item .car_body ul.car_desc_list li {display:inline-block;}
 .cars_area .cars_item .car_body ul.car_desc_list li.left_bar {padding-left:30px; background:url('http://d39imkxg0jo8t9.cloudfront.net/copyright_bar.jpg') no-repeat 10px 3px;}
 .cars_area .cars_item .car_body .car_btns {width:96%; margin:20px auto; *zoom:1;}
