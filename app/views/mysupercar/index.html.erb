@@ -50,7 +50,9 @@
   <div class="area_container banner_area">
     <div class="area_body">
       <div class="center">
-        <% banner = @mysupercar_data['banner'].values.select { |n| n['enable'].upcase == 'YES' }.clone.shuffle.first %>
+
+        <% banners = @mysupercar_data['banner'].values.select { |n| n['enable'].upcase == 'YES' }.clone %>
+        <% banner = (banners.nil?) ? nil : banners.shuffle.first %>
 
         <% if banner %>
           <a href="<%= banner['link'] %>"  target="_blank" class="bn_event action_link" data-action-category='배너클릭' data-action-detail='<%= banner['alt'] %>' data-area='BANNER' data-alt='<%= banner['alt'] %>' >
@@ -70,8 +72,8 @@
 
       <div id='slide_container'>
         <div id='slider' class="slides">
-          <%@mysupercar_data['event'].values.select{|n| n['enable'].upcase == 'YES' }.each do |item|%>
-            <a href="<%= item['link']%>"  target="_blank" class='action_link' data-action-category='추천/이벤트클릭' data-action-detail='<%= banner['alt'] %>' data-area='SLIDER' >
+          <%@mysupercar_data['event'].values.select{|n| n['enable'].upcase == 'YES' }.compact.each do |item|%>
+            <a href="<%= item['link']%>"  target="_blank" class='action_link' data-action-category='추천/이벤트클릭' data-action-detail='<%= item['alt'] %>' data-area='SLIDER' >
               <img src="<%=  ImageHelper.url(item['image'], :events) %>" alt="<%= item['alt']%>" />
             </a>
           <%end%>
