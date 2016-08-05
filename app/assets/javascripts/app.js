@@ -259,9 +259,19 @@ function init_slider(){
 }
 
 function isMySuperCar(){
-    return window.location.href.includes("mysupercar");
+    try{
+        var url = window.location.href;
+        return url.indexOf("mysupercar") >= 0;
+    } catch(e) {
+        return true;
+    }
 }
 
 function isMySuperVan(){
-    return window.location.href.includes("mysupervan");
+    try{
+        var url = window.location.href;
+        return url.indexOf("mysupervan") >= 0;
+    } catch(e) {
+        return true;
+    }
 }
