@@ -241,7 +241,8 @@ function reinit_slider(){
 }
 
 function init_slider(){
-    var max = $('#slider li').length;
+    debugger;
+    var max = $('#slider a').length;
     var start = Math.floor((Math.random() * max) + 1);
 
     if (start > max) {
