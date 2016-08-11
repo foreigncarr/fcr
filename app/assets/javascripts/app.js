@@ -242,7 +242,12 @@ function reinit_slider(){
 
 function init_slider(){
     var max = $('#slider li').length;
-    var start = Math.floor((Math.random() * 5) + 1);
+    var start = Math.floor((Math.random() * max) + 1);
+
+    if (start > max) {
+        start = 1;
+    }
+
     $('#slider').slidesjs({
         navigation:{active:false},
         width: 568,
