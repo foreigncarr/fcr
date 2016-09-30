@@ -84,23 +84,6 @@
     </div>
   </div>
 
-  <div class="area_container step_area">
-    <div class="area_body">
-      <div class="inner">
-        <h2 class="area_tit white">
-          <span class="bar bar_white"></span>
-          마이슈퍼카 렌트 방법
-        </h2>
-      </div>
-
-      <span class="blank_line"></span>
-
-      <div class="center">
-        <img src="http://d39imkxg0jo8t9.cloudfront.net/step_contents_van.png" />
-      </div>
-    </div>
-  </div>
-
   <div class="area_container brands_area">
     <div class="area_body">
       <div class="inner">
@@ -119,9 +102,43 @@
         </script>
       </ul>
     </div>
-    <span style="margin-top:40px;display:inline-block;width:100%;text-align:center;color:#a6a6a6;font-size: 20px;letter-spacing: -1px;">브랜드를 선택하시면 차량 리스트를 보실 수 있습니다</span>
+    <!--<span style="margin-top:40px;display:inline-block;width:100%;text-align:center;color:#a6a6a6;font-size: 20px;letter-spacing: -1px;">브랜드를 선택하시면 차량 리스트를 보실 수 있습니다</span>-->
   </div>
 
+  <div class="area_container step_area">
+    <div class="area_body">
+      <div class="inner">
+        <h2 class="area_tit white">
+          <span class="bar bar_white"></span>
+          마이슈퍼카 렌트 방법
+        </h2>
+      </div>
+
+      <span class="blank_line"></span>
+
+      <div class="center">
+        <img src="http://d39imkxg0jo8t9.cloudfront.net/step_contents_van.png" />
+      </div>
+    </div>
+  </div>
+
+  <% if @instagram_data.present? %>
+    <div class="area_container insta_area">
+      <div class="area_body">
+        <div class="inner">
+          <h2 class="area_tit black">
+            <span class="bar"></span>
+            마이슈퍼카
+          </h2>
+          <ul class="insta_list">
+            <% @instagram_data.first(6).each do |k,v| %>
+              <li><a href="<%= v['link'] %>" target="_blank"><img src="<%= v['image'] %>" width="180" height="132"></a></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <div class="inner"><hr /></div>
 
