@@ -64,6 +64,8 @@ class MysupercarController < ApplicationController
       end
     end
 
+    @instagram_data = InstagramData.load['data']
+
     stat('초기화면_마이슈퍼카') if @logging
   end
 
