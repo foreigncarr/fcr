@@ -241,7 +241,6 @@ function reinit_slider(){
 }
 
 function init_slider(){
-    debugger;
     var max = $('#slider a').length;
     var start = Math.floor((Math.random() * max) + 1);
 
