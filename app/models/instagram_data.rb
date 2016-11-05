@@ -8,6 +8,8 @@ class InstagramData
                        })
     end
     Oj.load data
+  rescue
+    {}
   end
 
   def self.clear_cache
